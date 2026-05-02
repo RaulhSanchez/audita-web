@@ -1,0 +1,83 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Cortexa AI .gitignore
+# Tras la auditoría de seguridad, NUNCA commitear ninguno de estos paths.
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Datos / persistencia / secretos
+.env
+.env.*
+!.env.example
+config.local.yaml
+config.runtime.yaml
+*.key
+*.pem
+*.crt
+nginx/certs/
+secrets/
+
+# Bases de datos y almacenamiento de la app
+db/
+data/
+logs/
+backups/
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+
+# Uploads y subidas temporales
+uploads/
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+venv/
+env/
+ENV/
+
+# IDE / SO
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Material interno (no debe estar en repo público)
+*.pptx
+*.xlsx
+*.docx
+scratch/
+notas/
+
+# Claude Code worktrees
+.claude/worktrees/
+.claude/local/
+
+# Archivos comprimidos
+*.zip
+*.tar.gz
+*.tgz
+
+# Logs y dumps
+*.log
+*.dump
+
+# CV / PII — NUNCA en el repo
+Raul_Huete_CV.pdf
+data/Raul_Huete_CV.pdf
+**/Raul_Huete_CV.pdf

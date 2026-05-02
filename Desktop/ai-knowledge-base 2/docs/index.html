@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO PRIMARIO -->
+  <title>Cortexa AI — IA Corporativa 100% Local y Privada</title>
+  <meta name="description" content="Implementa tu propia base de conocimiento corporativa con Cortexa AI. 100% On-premise, sin fugas de datos, sin costes por token y cumplimiento total de RGPD.">
+  <meta name="keywords" content="IA local, RAG corporativo, Ollama empresa, base de conocimiento IA, privacidad de datos IA, IA on-premise España">
+  
+  <!-- OPEN GRAPH (Para LinkedIn, WhatsApp, Facebook) -->
+  <meta property="og:title" content="Cortexa AI — Tu Conocimiento Corporativo, 100% Local">
+  <meta property="og:description" content="Sin APIs externas. Sin costes por uso. Sin fugas de datos. La potencia de la IA en tu propia infraestructura.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cortexa.ai/">
+  <meta property="og:image" content="https://cortexa.ai/og-image.jpg"> <!-- Sugerencia: Crea una imagen de 1200x630 -->
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cortexa AI — IA Corporativa Local">
+  <meta name="twitter:description" content="IA privada para empresas. Sin costes variables, sin nube.">
+
+  <link rel="canonical" href="https://cortexa.ai/">
+  <meta name="google-site-verification" content="sVHvU6ID7mvR9bTNJrH9KmtMfcARufZOnAaqs7FU-qU" />
+
+  <!-- DATOS ESTRUCTURADOS JSON-LD (SEO Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Cortexa AI",
+    "operatingSystem": "Linux, Windows, Docker",
+    "applicationCategory": "BusinessApplication",
+    "description": "Base de conocimiento corporativa 100% local basada en arquitectura RAG y modelos de lenguaje locales.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "description": "Demo gratuita disponible"
+    }
+  }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo-500: #6366f1;
+      --indigo-400: #818cf8;
+      --indigo-300: #a5b4fc;
+      --violet-400: #a78bfa;
+      --violet-300: #c084fc;
+      --blue-400:   #60a5fa;
+      --slate-900:  #0f172a;
+      --slate-800:  #1e293b;
+      --slate-700:  #334155;
+      --slate-600:  #475569;
+      --slate-500:  #64748b;
+      --slate-400:  #94a3b8;
+      --slate-300:  #cbd5e1;
+      --slate-100:  #f1f5f9;
+      --emerald:    #10b981;
+      --amber:      #f59e0b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top left, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      color: var(--slate-100);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.6); }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(9, 11, 30, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(99,102,241,0.15);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--slate-400);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--indigo-300); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 0.85rem !important;
+      transition: box-shadow 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover {
+      box-shadow: 0 4px 20px rgba(99,102,241,0.45) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── Hamburger ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: var(--slate-400);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    .nav-mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(9,11,30,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile-overlay.open { display: flex; }
+    .nav-mobile-overlay a {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--slate-300);
+      transition: color 0.2s;
+    }
+    .nav-mobile-overlay a:hover { color: var(--indigo-300); }
+    .nav-mobile-overlay .nav-cta {
+      font-size: 1rem !important;
+      padding: 0.75rem 2rem;
+    }
+
+    /* ── Sections ── */
+    section { padding: 6rem 1rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    #hero {
+      padding-top: 10rem; padding-bottom: 7rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--indigo-400);
+      text-transform: uppercase; letter-spacing: 2px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+    #hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #60a5fa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    #hero .sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--slate-400);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 30px rgba(99,102,241,0.5);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(99,102,241,0.1);
+      color: var(--indigo-300);
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid rgba(99,102,241,0.3);
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      background: rgba(99,102,241,0.2);
+      transform: translateY(-2px);
+    }
+
+    .hero-glow {
+      position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      background: rgba(99,102,241,0.07);
+      border-top: 1px solid rgba(99,102,241,0.15);
+      border-bottom: 1px solid rgba(99,102,241,0.15);
+      padding: 1.4rem 1rem;
+    }
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.5rem 2.5rem;
+      flex: 1;
+      min-width: 140px;
+    }
+    .stat-item + .stat-item {
+      border-left: 1px solid rgba(99,102,241,0.2);
+    }
+    .stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--indigo-300);
+      white-space: nowrap;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--slate-500);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .section-title {
+      text-align: center; margin-bottom: 3.5rem;
+    }
+    .section-title h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--slate-100);
+      margin-bottom: 0.6rem;
+    }
+    .section-title p {
+      color: var(--slate-500);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .accent { color: var(--indigo-400); }
+
+    /* ── Features grid ── */
+    #features { background: rgba(15,23,42,0.3); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(99,102,241,0.18);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .feature-card:hover {
+      border-color: rgba(99,102,241,0.45);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(99,102,241,0.15);
+    }
+    .feature-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-100);
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+    }
+
+    /* ── Comparison table ── */
+    #why {
+      background: linear-gradient(180deg, transparent 0%, rgba(30,27,75,0.25) 100%);
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      font-size: 0.9rem;
+    }
+    .comparison-table thead tr {
+      background: rgba(99,102,241,0.15);
+    }
+    .comparison-table th {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+      color: var(--indigo-300);
+      border-bottom: 1px solid rgba(99,102,241,0.2);
+    }
+    .comparison-table th:first-child { color: var(--slate-400); font-weight: 500; }
+    .comparison-table td {
+      padding: 0.9rem 1.2rem;
+      color: var(--slate-300);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .comparison-table tbody tr:last-child td { border-bottom: none; }
+    .comparison-table tbody tr:nth-child(odd) {
+      background: rgba(15,23,42,0.5);
+    }
+    .comparison-table tbody tr:nth-child(even) {
+      background: rgba(15,23,42,0.25);
+    }
+    .check { color: var(--emerald); font-size: 1.1rem; }
+    .cross { color: #ef4444; font-size: 1.1rem; }
+    .partial { color: var(--amber); font-size: 1.1rem; }
+
+    /* ── How it works ── */
+    #how {
+      background: rgba(15,23,42,0.3);
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      counter-reset: steps;
+    }
+    .step-card {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 18px;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+    .step-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: rgba(99,102,241,0.25);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .step-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--violet-300);
+      margin-bottom: 0.5rem;
+    }
+    .step-card p {
+      font-size: 0.85rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+    }
+
+    /* ── Technical Specs ── */
+    #specs {
+      background: rgba(15,23,42,0.5);
+      border-top: 1px solid rgba(99,102,241,0.1);
+    }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .spec-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .spec-icon {
+      background: rgba(99,102,241,0.2);
+      padding: 0.5rem;
+      border-radius: 8px;
+      color: var(--indigo-300);
+    }
+    .spec-text h4 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: var(--slate-100);
+    }
+    .spec-text p {
+      font-size: 0.85rem;
+      color: var(--slate-500);
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: rgba(15,23,42,0.3);
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+    .faq-item {
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(99,102,241,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .faq-item h3 {
+      font-size: 1rem;
+      color: var(--indigo-300);
+      margin-bottom: 0.7rem;
+    }
+    .faq-item p {
+      font-size: 0.88rem;
+      color: var(--slate-400);
+      line-height: 1.6;
+    }
+
+    /* ── Use cases ── */
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .usecase-card {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 1.8rem;
+    }
+    .usecase-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--indigo-400);
+      background: rgba(99,102,241,0.12);
+      border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    .usecase-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--slate-100);
+      margin-bottom: 0.4rem;
+    }
+    .usecase-card p {
+      font-size: 0.85rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+    }
+
+    /* ── CTA banner ── */
+    #cta {
+      text-align: center;
+      padding: 7rem 1rem;
+    }
+    .cta-box {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 28px;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .cta-box h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--slate-100);
+    }
+    .cta-box p {
+      color: var(--slate-400);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.65;
+    }
+    .cta-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .cta-form input, .cta-form textarea {
+      background: rgba(30,41,59,0.9);
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      color: var(--slate-100);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .cta-form textarea {
+      grid-column: span 2;
+      height: 100px;
+      resize: none;
+    }
+    .cta-form input:focus, .cta-form textarea:focus { border-color: rgba(99,102,241,0.7); }
+    .cta-submit {
+      grid-column: span 2;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: rgba(9,11,30,0.95);
+      border-top: 1px solid rgba(99,102,241,0.12);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-brand .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.4rem;
+    }
+    .footer-brand p { font-size: 0.82rem; color: var(--slate-600); max-width: 220px; line-height: 1.5; }
+    .footer-col h4 {
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--slate-400);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.5rem; }
+    .footer-col a { font-size: 0.85rem; color: var(--slate-600); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--indigo-300); }
+    .footer-bottom {
+      max-width: 1100px; margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: 0.78rem; color: var(--slate-700);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+      margin: 0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-inner { flex-direction: column; }
+      .stat-item + .stat-item { border-left: none; border-top: 1px solid rgba(99,102,241,0.2); }
+      .stat-item { padding: 0.8rem 1.5rem; }
+      .cta-form { grid-template-columns: 1fr; }
+      .cta-form textarea, .cta-submit { grid-column: span 1; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="nav-brand">Cortexa AI</div>
+    <ul class="nav-links">
+      <li><a href="#features">Funcionalidades</a></li>
+      <li><a href="#why">Comparativa</a></li>
+      <li><a href="#how">Cómo funciona</a></li>
+      <li><a href="pricing.html">Precios</a></li>
+      <li><a href="#specs">Requisitos</a></li>
+      <li><a href="#cta" class="nav-cta">Solicitar demo</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Abrir menú">☰</button>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="mobileMenu">
+    <a href="#features" onclick="closeMobileMenu()">Funcionalidades</a>
+    <a href="#why" onclick="closeMobileMenu()">Comparativa</a>
+    <a href="#how" onclick="closeMobileMenu()">Cómo funciona</a>
+    <a href="pricing.html" onclick="closeMobileMenu()">Precios</a>
+    <a href="#specs" onclick="closeMobileMenu()">Requisitos</a>
+    <a href="#cta" class="nav-cta" onclick="closeMobileMenu()">Solicitar demo</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-badge">IA Empresarial · 100% On-premise</div>
+      <h1>Tu Base de Conocimiento<br>Corporativo, 100% Local</h1>
+      <p class="sub">
+        Sin APIs externas. Sin costes por uso. Sin fugas de datos.<br>
+        Toda la potencia de la inteligencia artificial, dentro de tu infraestructura.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Solicitar demo gratuita</a>
+        <a href="#how" class="btn-secondary">Cómo funciona →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-value">Sin coste por consulta</span>
+        <span class="stat-label">Precio fijo, uso ilimitado</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">100% On-premise</span>
+        <span class="stat-label">Tus datos, en tu servidor</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">RGPD by design</span>
+        <span class="stat-label">Cumplimiento nativo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">Setup en &lt; 48h</span>
+        <span class="stat-label">Instalación asistida</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Todo lo que necesita tu empresa,<br><span class="accent">sin depender de nadie</span></h2>
+        <p>Cortexa AI combina recuperación vectorial avanzada con modelos de lenguaje locales para responder cualquier pregunta sobre tus documentos.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🔒</span>
+          <h3>100% Local &amp; Privado</h3>
+          <p>Tus documentos nunca abandonan tu servidor. Sin llamadas a OpenAI, sin almacenamiento externo, sin riesgos de privacidad.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🧠</span>
+          <h3>IA Powered by Ollama</h3>
+          <p>Ejecutamos Llama, Mistral o Qwen localmente. Sin límite de consultas, sin coste variable y con latencia mínima.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📂</span>
+          <h3>Gestión Documental</h3>
+          <p>Sube PDFs, DOCX, TXT. El sistema los indexa automáticamente con embeddings vectoriales para búsquedas semánticas.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">👥</span>
+          <h3>Control de Accesos</h3>
+          <p>Permisos granulares por departamento. Cada empleado accede únicamente a la información que le corresponde.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHY / COMPARISON -->
+  <section id="why">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Por qué elegir <span class="accent">Cortexa AI</span></h2>
+        <p>La diferencia entre confiar tus datos a una nube ajena o tener el control total.</p>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th>Cortexa AI</th>
+              <th>ChatGPT Enterprise</th>
+              <th>Nube Tradicional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Datos en tu infraestructura</td>
+              <td><span class="check">✔</span> Siempre</td>
+              <td><span class="cross">✘</span> Servidores OpenAI</td>
+              <td><span class="partial">◑</span> Cloud</td>
+            </tr>
+            <tr>
+              <td>Coste por consulta</td>
+              <td><span class="check">✔</span> Sin coste</td>
+              <td><span class="cross">✘</span> Por usuario/token</td>
+              <td><span class="cross">✘</span> Pago mensual</td>
+            </tr>
+            <tr>
+              <td>Funcionamiento sin internet</td>
+              <td><span class="check">✔</span> Air-gap posible</td>
+              <td><span class="cross">✘</span> 100% nube</td>
+              <td><span class="cross">✘</span> 100% nube</td>
+            </tr>
+            <tr>
+              <td>Cumplimiento RGPD</td>
+              <td><span class="check">✔</span> Nativo</td>
+              <td><span class="partial">◑</span> Vía contrato (DPA)</td>
+              <td><span class="partial">◑</span> Vía contrato</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>En marcha en <span class="accent">3 pasos</span></h2>
+        <p>Sin integraciones complejas. Tu equipo consultando documentos el primer día.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card fade-in">
+          <div class="step-number">01</div>
+          <h3>Instalación asistida</h3>
+          <p>Desplegamos Cortexa AI en tu servidor o VM interna vía Docker. Sin dependencias externas.</p>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-number">02</div>
+          <h3>Carga Documental</h3>
+          <p>Sube tus manuales y políticas. El sistema los procesa y crea un índice vectorial privado.</p>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-number">03</div>
+          <h3>Consulta Natural</h3>
+          <p>Tus empleados preguntan en lenguaje natural y reciben respuestas citando la fuente exacta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SPECS (NUEVO) -->
+  <section id="specs">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Requisitos <span class="accent">Técnicos</span></h2>
+        <p>Diseñado para ejecutarse en hardware empresarial estándar.</p>
+      </div>
+      <div class="specs-grid fade-in">
+        <div class="spec-item">
+          <div class="spec-icon">💻</div>
+          <div class="spec-text">
+            <h4>Hardware Recomendado</h4>
+            <p>GPU NVIDIA (RTX 3090/4090 o A-series) para máxima velocidad. También ejecutable en CPU con RAM suficiente (32GB+).</p>
+          </div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon">🐧</div>
+          <div class="spec-text">
+            <h4>Entorno</h4>
+            <p>Soporte nativo para Ubuntu 22.04+, Debian y cualquier entorno con Docker y Docker Compose.</p>
+          </div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-icon">🔒</div>
+          <div class="spec-text">
+            <h4>Seguridad</h4>
+            <p>Capacidad de despliegue en entornos "Air-gap" (sin conexión a internet) para máxima seguridad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ (NUEVO) -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Preguntas <span class="accent">Frecuentes</span></h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item fade-in">
+          <h3>¿Mis datos se usan para entrenar el modelo?</h3>
+          <p>Absolutamente NO. Al ser una instalación local, los datos no salen de tu servidor. No hay entrenamiento externo ni fugas.</p>
+        </div>
+        <div class="faq-item fade-in">
+          <h3>¿Qué pasa si no tenemos GPUs NVIDIA?</h3>
+          <p>El sistema es flexible. Podemos optimizar el modelo para ejecutarse en CPU o sugerir la infraestructura mínima necesaria.</p>
+        </div>
+        <div class="faq-item fade-in">
+          <h3>¿Cuánto tiempo tarda la indexación?</h3>
+          <p>Depende del volumen. Miles de páginas se indexan en pocos minutos, permitiendo consultas instantáneas.</p>
+        </div>
+        <div class="faq-item fade-in">
+          <h3>¿Soportan varios idiomas?</h3>
+          <p>Sí, los modelos que implementamos (como Llama 3 o Mistral) son multilingües y funcionan perfectamente en español.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- USE CASES -->
+  <section id="usecases">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Casos de uso <span class="accent">reales</span></h2>
+      </div>
+      <div class="usecases-grid">
+        <div class="usecase-card fade-in">
+          <span class="usecase-tag">Legal</span>
+          <h3>Consulta de normativa</h3>
+          <p>Abogados obtienen respuestas sobre contratos y leyes internas con cita exacta del párrafo fuente.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <span class="usecase-tag">RRHH</span>
+          <h3>Onboarding automatizado</h3>
+          <p>Nuevos empleados resuelven dudas sobre beneficios y cultura sin saturar al equipo de RRHH.</p>
+        </div>
+        <div class="usecase-card fade-in">
+          <span class="usecase-tag">IT / Soporte</span>
+          <h3>Base de Conocimiento IT</h3>
+          <p>Técnicos resuelven incidencias consultando runbooks y guías técnicas en segundos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA FORM -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-box fade-in">
+        <h2>¿Listo para tomar el control?</h2>
+        <p>Déjanos tus datos y organizaremos una demo técnica en tu propia infraestructura.</p>
+        
+        <!--
+          Formulario de demo
+          ─────────────────────────────────────────────────────────────────
+          IMPORTANTE: para que el formulario envíe correos:
+            1. Crea una cuenta gratuita en https://web3forms.com
+            2. Sustituye el atributo data-access-key del <form> por la clave
+               que te envíen al correo (un UUID).
+            3. Si despliegas tras CDN/Pages, considera además un reCAPTCHA.
+        -->
+        <form action="https://api.web3forms.com/submit"
+              method="POST"
+              class="cta-form"
+              data-access-key="REEMPLAZAR-CON-ACCESS-KEY-DE-WEB3FORMS"
+              onsubmit="this.querySelector('input[name=access_key]').value=this.dataset.accessKey;">
+          <input type="hidden" name="access_key" value="">
+          <input type="hidden" name="to_email" value="hola@cortexa.ai">
+          <input type="hidden" name="subject" value="Nueva solicitud de Demo - Cortexa AI">
+          <input type="hidden" name="from_name" value="Cortexa AI Website">
+          <!-- Honeypot anti-spam -->
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
+
+          <input type="text" name="name" placeholder="Nombre completo" required>
+          <input type="email" name="email" placeholder="tu@empresa.com" required>
+          <input type="text" name="company" placeholder="Empresa">
+          <input type="text" name="role" placeholder="Cargo / Puesto">
+          <textarea name="message" placeholder="Cuéntanos brevemente sobre tu caso de uso..." required></textarea>
+
+          <div class="cta-submit">
+            <button type="submit" class="btn-primary" style="width: 100%; max-width: 300px;">Solicitar demo →</button>
+          </div>
+        </form>
+
+        <p style="margin-top:1.5rem; font-size:0.78rem; color:var(--slate-700);">
+          También puedes escribirnos a <a href="mailto:hola@cortexa.ai" style="color:var(--indigo-400);">hola@cortexa.ai</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">Cortexa AI</div>
+      <p>Base de conocimiento corporativo 100% local. Privacidad total, rendimiento máximo.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Producto</h4>
+      <ul>
+        <li><a href="#features">Funcionalidades</a></li>
+        <li><a href="#why">Comparativa</a></li>
+        <li><a href="#how">Cómo funciona</a></li>
+        <li><a href="#specs">Requisitos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="mailto:hola@cortexa.ai">Contacto</a></li>
+        <li><a href="/privacidad.html">Política de privacidad</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tecnología</h4>
+      <ul>
+        <li><a href="https://ollama.com" target="_blank">Ollama</a></li>
+        <li><a href="https://streamlit.io" target="_blank">Streamlit</a></li>
+        <li><a href="#">Arquitectura RAG</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Cortexa AI. Todos los derechos reservados.</span>
+    <span>Hecho con 🧠 en España · RGPD compliant by design</span>
+  </div>
+</footer>
+
+<script>
+  // Menú móvil
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.textContent = isOpen ? '✕' : '☰';
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburgerBtn.textContent = '☰';
+  }
+
+  // Animaciones de scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

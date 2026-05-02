@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cortexa AI — Planes y Precios</title>
+
+  <!-- SEO & OG -->
+  <meta name="description" content="Cortexa AI — Planes y precios para tu base de conocimiento corporativo 100% local. Sin coste por consulta, sin letra pequeña.">
+  <meta property="og:title" content="Cortexa AI — Planes y Precios">
+  <meta property="og:description" content="Sin APIs externas. Sin costes por uso. Sin fugas de datos. Toda la potencia de la IA dentro de tu infraestructura.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cortexa.ai/pricing.html">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo-500: #6366f1;
+      --indigo-400: #818cf8;
+      --indigo-300: #a5b4fc;
+      --violet-400: #a78bfa;
+      --violet-300: #c084fc;
+      --blue-400:   #60a5fa;
+      --slate-900:  #0f172a;
+      --slate-800:  #1e293b;
+      --slate-700:  #334155;
+      --slate-600:  #475569;
+      --slate-500:  #64748b;
+      --slate-400:  #94a3b8;
+      --slate-300:  #cbd5e1;
+      --slate-100:  #f1f5f9;
+      --emerald:    #10b981;
+      --amber:      #f59e0b;
+      --red:        #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at top left, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      color: var(--slate-100);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+
+    a { text-decoration: none; color: inherit; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.35); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.6); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(9,11,30,0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(99,102,241,0.15);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem; font-weight: 800;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-back {
+      font-size: 0.85rem; color: var(--slate-500);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--indigo-300); }
+
+    /* ── Hamburger ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: var(--slate-400);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    .nav-mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(9,11,30,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-mobile-overlay.open { display: flex; }
+    .nav-mobile-overlay a {
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--slate-300);
+      transition: color 0.2s;
+    }
+    .nav-mobile-overlay a:hover { color: var(--indigo-300); }
+    .nav-mobile-overlay .nav-cta {
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+
+    /* ── Hero ── */
+    #hero {
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+    }
+    .hero-glow {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--indigo-400);
+      text-transform: uppercase; letter-spacing: 2px;
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.2rem;
+    }
+    #hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #60a5fa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    #hero p {
+      color: var(--slate-500);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      text-align: center; margin-bottom: 3rem;
+    }
+    .section-title h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 800; color: var(--slate-100);
+      margin-bottom: 0.5rem;
+    }
+    .section-title p {
+      color: var(--slate-500); font-size: 0.92rem;
+      max-width: 480px; margin: 0 auto; line-height: 1.6;
+    }
+    .accent { color: var(--indigo-400); }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
+    }
+
+    /* ── Pricing cards ── */
+    #pricing { padding-bottom: 4rem; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .plan-card {
+      background: rgba(15,23,42,0.7);
+      border: 1px solid rgba(99,102,241,0.18);
+      border-radius: 22px;
+      padding: 2.2rem 1.8rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 45px rgba(99,102,241,0.15);
+    }
+    .plan-card.featured {
+      border-color: rgba(99,102,241,0.5);
+      background: rgba(30,27,75,0.6);
+      box-shadow: 0 0 0 1px rgba(99,102,241,0.3), 0 16px 50px rgba(99,102,241,0.2);
+    }
+    .plan-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 0.2rem 0.9rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .plan-tier {
+      font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--indigo-400);
+      margin-bottom: 0.6rem;
+    }
+    .plan-name {
+      font-size: 1.7rem; font-weight: 800;
+      color: var(--slate-100);
+      margin-bottom: 0.3rem;
+    }
+    .plan-tagline {
+      font-size: 0.85rem; color: var(--slate-500);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .plan-price {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem; font-weight: 900;
+      color: var(--slate-100);
+      margin-bottom: 0.2rem;
+    }
+    .plan-price span {
+      font-size: 1rem; font-weight: 500;
+      color: var(--slate-500);
+    }
+    .plan-billing {
+      font-size: 0.78rem; color: var(--slate-600);
+      margin-bottom: 2rem;
+    }
+    .plan-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 2rem;
+    }
+    .plan-features li {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.87rem; color: var(--slate-300);
+      margin-bottom: 0.7rem;
+      line-height: 1.4;
+    }
+    .plan-features li .check { color: var(--emerald); font-size: 0.95rem; flex-shrink: 0; margin-top: 1px; }
+    .plan-features li .dash  { color: var(--slate-600); flex-shrink: 0; margin-top: 1px; }
+    .plan-cta {
+      display: block; text-align: center;
+      padding: 0.85rem 1rem;
+      border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .plan-cta.primary {
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff;
+    }
+    .plan-cta.primary:hover {
+      box-shadow: 0 5px 20px rgba(99,102,241,0.45);
+      transform: translateY(-1px);
+    }
+    .plan-cta.outline {
+      border: 1px solid rgba(99,102,241,0.35);
+      color: var(--indigo-300);
+      background: rgba(99,102,241,0.06);
+    }
+    .plan-cta.outline:hover {
+      background: rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.6);
+    }
+
+    /* ── What's included ── */
+    #includes { background: rgba(15,23,42,0.3); }
+    .includes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .include-card {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .include-card .icon {
+      font-size: 1.8rem; margin-bottom: 0.7rem; display: block;
+    }
+    .include-card h3 {
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--violet-300); margin-bottom: 0.4rem;
+    }
+    .include-card p {
+      font-size: 0.83rem; color: var(--slate-500); line-height: 1.6;
+    }
+
+    /* ── Why local ── */
+    #why-local {
+      background: linear-gradient(180deg, transparent, rgba(30,27,75,0.2));
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .why-card {
+      background: rgba(15,23,42,0.55);
+      border: 1px solid rgba(99,102,241,0.12);
+      border-radius: 18px;
+      padding: 2rem 1.6rem;
+    }
+    .why-card .why-icon {
+      font-size: 2rem; margin-bottom: 0.9rem; display: block;
+    }
+    .why-card h3 {
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--slate-100); margin-bottom: 0.5rem;
+    }
+    .why-card p {
+      font-size: 0.85rem; color: var(--slate-500); line-height: 1.65;
+    }
+    .why-card ul {
+      margin-top: 0.7rem; padding-left: 1rem;
+    }
+    .why-card ul li {
+      font-size: 0.83rem; color: var(--slate-500);
+      margin-bottom: 0.35rem; line-height: 1.5;
+    }
+
+    /* ── FAQ ── */
+    #faq { background: rgba(15,23,42,0.2); }
+    .faq-list { max-width: 720px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1.4rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--slate-100); margin-bottom: 0.5rem;
+    }
+    .faq-a {
+      font-size: 0.87rem; color: var(--slate-500); line-height: 1.65;
+    }
+
+    /* ── Contact CTA ── */
+    #contact { text-align: center; padding: 6rem 1.5rem; }
+    .contact-box {
+      background: rgba(99,102,241,0.07);
+      border: 1px solid rgba(99,102,241,0.22);
+      border-radius: 26px;
+      padding: 3.5rem 2rem;
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .contact-box::before {
+      content:'';
+      position: absolute; inset:0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.12), transparent 65%);
+      pointer-events: none;
+    }
+    .contact-box h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+      color: var(--slate-100);
+    }
+    .contact-box p {
+      color: var(--slate-400); font-size: 0.95rem;
+      margin-bottom: 2rem; line-height: 1.65;
+      max-width: 460px; margin-left: auto; margin-right: auto;
+    }
+    .contact-actions {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--indigo-500), #8b5cf6);
+      color: #fff;
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      display: inline-block;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 28px rgba(99,102,241,0.45);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(99,102,241,0.1);
+      color: var(--indigo-300);
+      padding: 0.85rem 1.8rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+      border: 1px solid rgba(99,102,241,0.3);
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover {
+      background: rgba(99,102,241,0.2);
+      transform: translateY(-2px);
+    }
+    .contact-meta {
+      margin-top: 1.5rem; font-size: 0.8rem; color: var(--slate-700);
+    }
+    .contact-meta a { color: var(--indigo-400); transition: color 0.2s; }
+    .contact-meta a:hover { color: var(--indigo-300); }
+
+    /* ── Footer ── */
+    footer {
+      background: rgba(9,11,30,0.95);
+      border-top: 1px solid rgba(99,102,241,0.1);
+      padding: 2.5rem;
+      text-align: center;
+    }
+    footer .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      background: linear-gradient(135deg, #818cf8, #c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    footer p { font-size: 0.78rem; color: var(--slate-700); }
+
+    /* ── Scroll animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-back { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    @media (max-width: 640px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav>
+  <div class="nav-brand">Cortexa AI</div>
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+  <button class="nav-hamburger" id="hamburgerBtn" aria-label="Abrir menú">☰</button>
+</nav>
+
+<!-- Mobile overlay menu -->
+<div class="nav-mobile-overlay" id="mobileMenu">
+  <a href="index.html" onclick="closeMobileMenu()">← Volver al inicio</a>
+  <a href="#pricing" onclick="closeMobileMenu()">Planes</a>
+  <a href="#includes" onclick="closeMobileMenu()">Qué incluye</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" class="nav-cta" onclick="closeMobileMenu()">Contactar</a>
+</div>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="badge">Planes y Precios</div>
+    <h1>Una licencia justa,<br>sin sorpresas</h1>
+    <p>
+      Precio fijo mensual. Sin coste por consulta, sin coste por token,
+      sin letra pequeña. Elige el plan que se adapta al tamaño de tu equipo.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Pricing cards ── -->
+<section id="pricing">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <!-- STARTER -->
+      <div class="plan-card fade-in">
+        <div class="plan-tier">Starter</div>
+        <div class="plan-name">Starter</div>
+        <div class="plan-tagline">Para equipos pequeños que quieren empezar con IA privada sin grandes inversiones.</div>
+        <div class="plan-price">Desde 299€ <span>/ mes</span></div>
+        <div class="plan-billing">Facturación mensual · Sin permanencia</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Hasta 5 usuarios activos</li>
+          <li><span class="check">✔</span> 1 departamento / grupo de documentos</li>
+          <li><span class="check">✔</span> Hasta 500 documentos indexados</li>
+          <li><span class="check">✔</span> Instalación guiada (documentación)</li>
+          <li><span class="check">✔</span> Actualizaciones de software incluidas</li>
+          <li><span class="check">✔</span> Soporte por email (72h respuesta)</li>
+          <li><span class="dash">–</span> Soporte prioritario</li>
+          <li><span class="dash">–</span> Onboarding asistido</li>
+          <li><span class="dash">–</span> SLA garantizado</li>
+        </ul>
+        <a href="mailto:hola@cortexa.ai?subject=Plan Starter" class="plan-cta outline">
+          Empezar con Starter
+        </a>
+      </div>
+
+      <!-- BUSINESS (featured) -->
+      <div class="plan-card featured fade-in">
+        <div class="plan-badge">Más popular</div>
+        <div class="plan-tier">Business</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-tagline">Para empresas con varios departamentos que necesitan control granular y soporte ágil.</div>
+        <div class="plan-price">Desde 699€ <span>/ mes</span></div>
+        <div class="plan-billing">Facturación mensual · Sin permanencia</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Hasta 25 usuarios activos</li>
+          <li><span class="check">✔</span> Grupos ilimitados por departamento</li>
+          <li><span class="check">✔</span> Documentos ilimitados</li>
+          <li><span class="check">✔</span> Instalación asistida (videollamada)</li>
+          <li><span class="check">✔</span> Actualizaciones de software incluidas</li>
+          <li><span class="check">✔</span> Soporte email prioritario (24h respuesta)</li>
+          <li><span class="check">✔</span> Panel de analíticas de uso</li>
+          <li><span class="check">✔</span> Gestión de roles avanzada</li>
+          <li><span class="dash">–</span> SLA garantizado</li>
+        </ul>
+        <a href="mailto:hola@cortexa.ai?subject=Plan Business" class="plan-cta primary">
+          Solicitar Business
+        </a>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="plan-card fade-in">
+        <div class="plan-tier">Enterprise</div>
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-tagline">Para organizaciones grandes que requieren escala, customización y garantías de servicio.</div>
+        <div class="plan-price">A consultar</div>
+        <div class="plan-billing">Contrato anual · Precio según volumen</div>
+        <ul class="plan-features">
+          <li><span class="check">✔</span> Usuarios ilimitados</li>
+          <li><span class="check">✔</span> Grupos y permisos ilimitados</li>
+          <li><span class="check">✔</span> Documentos ilimitados</li>
+          <li><span class="check">✔</span> Onboarding in-situ incluido</li>
+          <li><span class="check">✔</span> Instalación y configuración asistida</li>
+          <li><span class="check">✔</span> SLA 24h garantizado</li>
+          <li><span class="check">✔</span> Soporte técnico dedicado</li>
+          <li><span class="check">✔</span> Customización de modelos y UI</li>
+          <li><span class="check">✔</span> Auditoría de accesos y logs</li>
+        </ul>
+        <a href="mailto:hola@cortexa.ai?subject=Plan Enterprise" class="plan-cta outline">
+          Contactar ventas
+        </a>
+      </div>
+
+    </div>
+
+    <!-- All plans note -->
+    <p style="text-align:center; margin-top:2rem; font-size:0.8rem; color:var(--slate-600);">
+      Todos los planes incluyen el código fuente desplegado en tu infraestructura.
+      IVA no incluido. Los precios pueden ajustarse según infraestructura requerida.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── What's included ── -->
+<section id="includes">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>¿Qué incluye <span class="accent">la licencia</span>?</h2>
+      <p>Más allá del software: un servicio completo para que tu equipo aproveche la IA desde el primer día.</p>
+    </div>
+    <div class="includes-grid">
+      <div class="include-card fade-in">
+        <span class="icon">🚀</span>
+        <h3>Instalación y puesta en marcha</h3>
+        <p>Desplegamos Cortexa AI en tu servidor o VM. Configuramos el modelo de IA, la base de datos vectorial y los permisos iniciales. Entregamos en &lt;48h laborables.</p>
+      </div>
+      <div class="include-card fade-in">
+        <span class="icon">🔄</span>
+        <h3>Actualizaciones de software</h3>
+        <p>Recibes todas las mejoras, correcciones de seguridad y nuevas funcionalidades durante la vigencia de la licencia, sin coste adicional.</p>
+      </div>
+      <div class="include-card fade-in">
+        <span class="icon">🛠️</span>
+        <h3>Mantenimiento correctivo</h3>
+        <p>Si algo deja de funcionar, lo resolvemos. Reporta incidencias por email y nuestro equipo actúa según el SLA de tu plan.</p>
+      </div>
+      <div class="include-card fade-in">
+        <span class="icon">📖</span>
+        <h3>Documentación completa</h3>
+        <p>Manual de administración, guía de usuario final y runbook de operaciones. Todo en español, siempre actualizado.</p>
+      </div>
+      <div class="include-card fade-in">
+        <span class="icon">🔐</span>
+        <h3>Código en tu poder</h3>
+        <p>La aplicación se ejecuta en tu infraestructura. No hay dependencia de nuestra disponibilidad para que el sistema funcione en producción.</p>
+      </div>
+      <div class="include-card fade-in">
+        <span class="icon">🤝</span>
+        <h3>Onboarding de usuario</h3>
+        <p>Sesión de formación para administradores (Business y Enterprise) y material de apoyo para que el equipo adopte la herramienta rápidamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Why local ── -->
+<section id="why-local">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>¿Por qué <span class="accent">local</span> y no en la nube?</h2>
+      <p>Tres razones de peso para elegir una solución on-premise sobre un SaaS de IA.</p>
+    </div>
+    <div class="why-grid">
+
+      <div class="why-card fade-in">
+        <span class="why-icon">🇪🇺</span>
+        <h3>Cumplimiento RGPD por diseño</h3>
+        <p>
+          Cuando usas herramientas de IA en la nube, tus documentos y las consultas de tus empleados viajan a servidores de terceros (muchas veces en EE.UU.), lo que puede implicar:
+        </p>
+        <ul>
+          <li>Transferencia internacional de datos sin garantías adecuadas</li>
+          <li>Necesidad de DPA con el proveedor</li>
+          <li>Riesgo de uso de tus datos para entrenar modelos</li>
+        </ul>
+        <p style="margin-top:0.7rem;">Con Cortexa AI, <strong style="color:var(--slate-300);">los datos nunca salen de tu red interna</strong>. El cumplimiento RGPD es una consecuencia natural de la arquitectura, no un checkbox.</p>
+      </div>
+
+      <div class="why-card fade-in">
+        <span class="why-icon">🔒</span>
+        <h3>Seguridad real, no confianza ciega</h3>
+        <p>
+          Los servicios cloud de IA prometen cifrado y anonimización, pero no puedes auditarlos. Con infraestructura propia:
+        </p>
+        <ul>
+          <li>Control total sobre quién accede a los datos</li>
+          <li>Logs completos de actividad auditables internamente</li>
+          <li>Sin superficie de ataque externa hacia tus documentos</li>
+          <li>Compatible con entornos air-gap y redes cerradas</li>
+        </ul>
+        <p style="margin-top:0.7rem;">Ideal para sectores regulados: sanidad, banca, defensa, legal.</p>
+      </div>
+
+      <div class="why-card fade-in">
+        <span class="why-icon">📉</span>
+        <h3>Coste predecible a largo plazo</h3>
+        <p>
+          Los SaaS de IA cobran por consulta, por token o por usuario activo. A medida que el uso crece, el coste escala sin control:
+        </p>
+        <ul>
+          <li>ChatGPT Enterprise: desde 25€/usuario/mes + tokens</li>
+          <li>Con 50 usuarios intensivos: fácilmente 3.000–8.000€/mes</li>
+          <li>Sin límite de previsión si el uso aumenta</li>
+        </ul>
+        <p style="margin-top:0.7rem;">Cortexa AI tiene <strong style="color:var(--slate-300);">precio fijo mensual</strong> independientemente del número de consultas. Tu ROI mejora cuanto más lo usas.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-title fade-in">
+      <h2>Preguntas <span class="accent">frecuentes</span></h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿Necesito una GPU potente para ejecutar Cortexa AI?</div>
+        <div class="faq-a">
+          No necesariamente. Los modelos de menor tamaño (7B parámetros) funcionan bien en CPU moderna con 16 GB de RAM.
+          Para mejores tiempos de respuesta con modelos más grandes, se recomienda una GPU con al menos 8 GB de VRAM.
+          Te asesoramos sobre el hardware óptimo para tu caso de uso durante el proceso de onboarding.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿Qué pasa si cancelo la licencia?</div>
+        <div class="faq-a">
+          La aplicación continúa funcionando con la última versión instalada. Solo dejas de recibir actualizaciones
+          y soporte. No hay lock-in: el software queda en tu infraestructura.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿Puedo cambiar de plan en cualquier momento?</div>
+        <div class="faq-a">
+          Sí. Puedes hacer upgrade en cualquier momento. El cambio se aplica al siguiente ciclo de facturación
+          y migramos la configuración sin interrupción de servicio.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿Qué modelos de IA son compatibles?</div>
+        <div class="faq-a">
+          Cualquier modelo disponible en Ollama: Llama 3, Mistral, Qwen 2.5, Phi-3, Gemma y muchos más.
+          También puedes conectar modelos propios o fine-tuned si están en formato compatible con Ollama.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿El precio incluye el hardware?</div>
+        <div class="faq-a">
+          No. Los planes cubren la licencia de software, instalación y soporte. El hardware (servidor, VM o
+          contenedor Docker) corre por cuenta del cliente. Te ayudamos a dimensionar correctamente según
+          tu volumen de documentos y usuarios.
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <div class="faq-q">¿Se puede integrar con Active Directory o LDAP?</div>
+        <div class="faq-a">
+          La gestión de usuarios actual es nativa. La integración con AD/LDAP está en el roadmap para
+          el plan Enterprise. Contáctanos si es un requisito prioritario para tu organización.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Contact CTA ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-box fade-in">
+      <h2>Hablemos sobre<br>tu proyecto</h2>
+      <p>
+        Cuéntanos el tamaño de tu equipo, qué documentos quieres gestionar
+        y en qué tipo de infraestructura trabajas. Te enviamos una propuesta
+        personalizada en menos de 24 horas.
+      </p>
+      <div class="contact-actions">
+        <a href="mailto:hola@cortexa.ai?subject=Solicitud de propuesta Cortexa AI" class="btn-primary">
+          Enviar email →
+        </a>
+        <a href="https://calendly.com/cortexa-ai" target="_blank" rel="noopener" class="btn-secondary">
+          Agendar llamada
+        </a>
+      </div>
+      <div class="contact-meta">
+        <a href="mailto:hola@cortexa.ai">hola@cortexa.ai</a>
+        &nbsp;·&nbsp;
+        <a href="https://calendly.com/cortexa-ai" target="_blank" rel="noopener">calendly.com/cortexa-ai</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="logo">Cortexa AI</div>
+  <p>© 2026 Cortexa AI · Base de conocimiento corporativo 100% local · RGPD compliant by design</p>
+</footer>
+
+<script>
+  // ── Mobile hamburger menu ──
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.textContent = isOpen ? '✕' : '☰';
+    hamburgerBtn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  });
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburgerBtn.textContent = '☰';
+    hamburgerBtn.setAttribute('aria-label', 'Abrir menú');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && e.target !== hamburgerBtn) {
+      closeMobileMenu();
+    }
+  });
+
+  // ── Scroll animations ──
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

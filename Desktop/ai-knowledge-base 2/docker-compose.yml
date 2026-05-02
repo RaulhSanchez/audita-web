@@ -1,0 +1,27 @@
+services:
+  cortexa:
+    build: .
+    container_name: cortexa-ai
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./db:/app/db
+      - ./data:/app/data
+      - ./assets:/app/assets
+      - ./logs:/app/logs
+      - ./backups:/app/backups
+      # Cache de modelos para evitar descargas repetidas
+      - cortexa_models_cache:/root/.cache/torch
+      - cortexa_huggingface_cache:/root/.cache/huggingface
+    environment:
+      - DATA_DIR=/app/data
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-qwen2.5:7b}
+      - SETTINGS_ENCRYPTION_KEY=${SETTINGS_ENCRYPTION_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  cortexa_models_cache:
+  cortexa_huggingface_cache:

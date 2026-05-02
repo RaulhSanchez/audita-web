@@ -1,0 +1,35 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Cortexa AI · Plantilla de configuración (NO contiene secretos reales)
+#
+# IMPORTANTE: este archivo es una plantilla. La aplicación rellena los hashes
+# bcrypt al primer arranque a partir de las variables de entorno definidas en
+# .env (ADMIN_INITIAL_PASSWORD, COOKIE_SECRET_KEY).
+#
+# NUNCA comprometas contraseñas, hashes ni cookie keys reales aquí. El
+# .gitignore protege config.runtime.yaml (donde se persisten los hashes una vez
+# generados al primer arranque).
+# ──────────────────────────────────────────────────────────────────────────────
+
+credentials:
+  usernames:
+    admin:
+      email: admin@empresa.com
+      name: Administrador
+      # Hash bcrypt vacío — se genera al primer arranque desde
+      # ADMIN_INITIAL_PASSWORD (variable de entorno) y se persiste en
+      # config.runtime.yaml fuera del repo.
+      password: ""
+      role: "admin"
+      workspaces: ["all"]
+      can_upload: true
+
+cookie:
+  expiry_days: 30
+  # Clave de cookies — leer SIEMPRE desde COOKIE_SECRET_KEY (.env). Si está
+  # vacía aquí, app.py la genera aleatoriamente al primer arranque.
+  key: ""
+  name: "cortexa_session"
+
+pre-authorized:
+  emails:
+    - admin@empresa.com
