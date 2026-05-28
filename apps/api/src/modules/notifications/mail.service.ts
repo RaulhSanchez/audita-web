@@ -23,6 +23,9 @@ export class MailService {
       port: 587,
       secure: false, // STARTTLS
       auth: { user, pass },
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 15_000,
     });
 
     await transporter.sendMail({

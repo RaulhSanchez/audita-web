@@ -67,7 +67,14 @@ export function AuditForm() {
 
   const pollResult = (id: string) => {
     const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+    const deadline = Date.now() + 5 * 60 * 1000; // 5-minute timeout
     const interval = setInterval(async () => {
+      if (Date.now() > deadline) {
+        clearInterval(interval);
+        setError('La auditoría tardó demasiado. El servidor puede estar arrancando (plan gratuito). Inténtalo de nuevo en 30 segundos.');
+        setLoading(false);
+        return;
+      }
       try {
         const res = await fetch(`${apiBase}/api/audits/${id}`);
         const data = await res.json();
@@ -78,10 +85,10 @@ export function AuditForm() {
         }
       } catch {
         clearInterval(interval);
-        setError('Error al consultar el resultado');
+        setError('Error al consultar el resultado. Comprueba tu conexión e inténtalo de nuevo.');
         setLoading(false);
       }
-    }, 1000);
+    }, 2000);
   };
 
   const handleTeaserEmail = async (e: React.FormEvent) => {

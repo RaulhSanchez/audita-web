@@ -40,8 +40,11 @@ export class AggregatorService {
 
     const ctx: CheckContext = { url, html, headers };
 
-    // 1. Lighthouse (optional)
+    // 1. Lighthouse (optional — skipped when no Chromium available e.g. Render free tier)
     try {
+      if (process.env.PUPPETEER_SKIP_DOWNLOAD === 'true') {
+        throw new Error('Lighthouse skipped: no Chromium (PUPPETEER_SKIP_DOWNLOAD=true)');
+      }
       const lighthouse = (await import('lighthouse')).default;
       const chromeLauncher = await import('chrome-launcher');
       const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-zygote'] });
