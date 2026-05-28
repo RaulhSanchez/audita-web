@@ -1,0 +1,55 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Audit {
+  id            String    @id @default(uuid())
+  url           String
+  domain        String
+  email         String?
+  sector        String?
+  zona          String?
+  status        String    // pending | running | done | failed
+  globalScore   Int?
+  scores        String?   // JSON stringified
+  findings      String?   // JSON stringified
+  narrative     String?
+  pdfUrl        String?
+  publicSlug    String?   @unique
+  createdAt     DateTime  @default(now())
+  completedAt   DateTime?
+  leadId        String?
+  lead          Lead?     @relation(fields: [leadId], references: [id])
+  source        String?
+}
+
+model Lead {
+  id            String    @id @default(uuid())
+  email         String
+  name          String?
+  phone         String?
+  company       String?
+  firstAuditId  String?
+  auditCount    Int       @default(0)
+  sourceChannel String?
+  status        String    @default("new")
+  notes         String?
+  notionId      String?
+  createdAt     DateTime  @default(now())
+  audits        Audit[]
+}
+
+model FindingCatalog {
+  code           String   @id
+  category       String
+  severity       String
+  titleEs        String
+  descriptionEs  String
+  businessImpact String
+  fixSuggestion  String
+}
