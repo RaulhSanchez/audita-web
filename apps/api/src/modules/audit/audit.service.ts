@@ -125,28 +125,28 @@ export class AuditService {
   }
 
   private async sendReportEmail(email: string, url: string, auditId: string, pdfBuffer: Buffer | null, globalScore: number) {
-    const gmailUser = process.env.GMAIL_USER;
-    const gmailPass = process.env.GMAIL_APP_PASSWORD;
+    const resendApiKey = process.env.RESEND_API_KEY;
 
-    if (!gmailUser || !gmailPass) {
-      this.logger.warn('⚠️  GMAIL_USER o GMAIL_APP_PASSWORD vacíos — email NO enviado.');
+    if (!resendApiKey) {
+      this.logger.warn('⚠️  RESEND_API_KEY vacío — email NO enviado.');
       return;
     }
 
     const hostname = new URL(url).hostname;
     const reportUrl = `${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/report/?id=${auditId}`;
+    const fromAddress = process.env.RESEND_FROM ?? 'AuditaWeb <onboarding@resend.dev>';
 
     try {
       await this.mailService.send(
         {
-          from: `Raúl Huete — AuditaWeb <${gmailUser}>`,
+          from: fromAddress,
           to: email,
           subject: `Tu informe de auditoría para ${hostname} — Puntuación: ${globalScore}/100`,
           html: `
             <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
               <h2 style="color:#4f46e5">Tu informe está listo</h2>
               <p>Hemos analizado <strong>${url}</strong> y tu puntuación global es <strong style="font-size:1.4em">${globalScore}/100</strong>.</p>
-              <p>Adjunto encontrarás el PDF con todos los hallazgos y el plan de acción.</p>
+              <p>Haz clic en el botón para ver todos los hallazgos y el plan de acción.</p>
               <a href="${reportUrl}" style="display:inline-block;margin:16px 0;background:#4f46e5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Ver resultado online</a>
               <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
               <p style="font-size:12px;color:#64748b">Raúl Huete · zero2dev.es</p>
@@ -160,8 +160,7 @@ export class AuditService {
             },
           } : {}),
         },
-        gmailUser,
-        gmailPass,
+        resendApiKey,
       );
     } catch (e) {
       this.logger.error(`Error enviando email a ${email}`, e);

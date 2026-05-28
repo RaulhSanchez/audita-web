@@ -11,10 +11,10 @@ services:
         value: production
       - key: DATABASE_URL
         sync: false          # se pone a mano en Render dashboard
-      - key: GMAIL_USER
-        sync: false
-      - key: GMAIL_APP_PASSWORD
-        sync: false
+      - key: RESEND_API_KEY
+        sync: false          # API key de resend.com — reemplaza SMTP
+      - key: RESEND_FROM
+        sync: false          # ej: "AuditaWeb <noreply@zero2dev.es>" (dominio verificado) o dejar vacío para usar onboarding@resend.dev
       - key: TELEGRAM_BOT_TOKEN
         value: ""
       - key: TELEGRAM_CHAT_ID
