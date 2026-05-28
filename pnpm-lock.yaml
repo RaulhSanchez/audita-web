@@ -25,7 +25,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^1.1.28
-        version: 1.1.28(@browserbasehq/sdk@2.12.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3))(@ibm-cloud/watsonx-ai@1.7.12)(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@neondatabase/serverless@1.1.0)(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(ibm-cloud-sdk-core@5.4.20)(ignore@7.0.5)(jsonwebtoken@9.0.3)(lodash@4.18.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(playwright@1.60.0)(puppeteer@25.0.4(typescript@5.9.2))(ws@8.21.0)
+        version: 1.1.28(@browserbasehq/sdk@2.12.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3))(@ibm-cloud/watsonx-ai@1.7.12)(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(ibm-cloud-sdk-core@5.4.20)(ignore@7.0.5)(jsonwebtoken@9.0.3)(lodash@4.18.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(playwright@1.60.0)(puppeteer@25.0.4(typescript@5.9.2))(ws@8.21.0)
       '@langchain/core':
         specifier: ^1.1.48
         version: 1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
@@ -33,8 +33,8 @@ importers:
         specifier: ^1.2.7
         version: 1.2.7(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))
       '@neondatabase/serverless':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^0.9.5
+        version: 0.9.5
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.22(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -48,8 +48,8 @@ importers:
         specifier: ^11.0.1
         version: 11.1.22(@nestjs/common@11.1.22(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.22)
       '@prisma/adapter-neon':
-        specifier: ^7.8.0
-        version: 7.8.0
+        specifier: ^5.22.0
+        version: 5.22.0(@neondatabase/serverless@0.9.5)
       '@prisma/client':
         specifier: '5'
         version: 5.22.0(prisma@5.22.0)
@@ -74,6 +74,9 @@ importers:
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
+      ws:
+        specifier: ^8.21.0
+        version: 8.21.0
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -102,6 +105,9 @@ importers:
       '@types/supertest':
         specifier: ^7.0.0
         version: 7.2.0
+      '@types/ws':
+        specifier: ^8.18.1
+        version: 8.18.1
       eslint:
         specifier: ^9.18.0
         version: 9.39.1(jiti@2.7.0)
@@ -1381,9 +1387,8 @@ packages:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
 
-  '@neondatabase/serverless@1.1.0':
-    resolution: {integrity: sha512-r3ZZhRjEcfEdKIZnoB1RusNgvHuaBRqfCzV4Gi+5A9yUX0S4HTws/ASWqt13wL4y4I+0rqsWGdA2w7EQXHi3+Q==}
-    engines: {node: '>=19.0.0'}
+  '@neondatabase/serverless@0.9.5':
+    resolution: {integrity: sha512-siFas6gItqv6wD/pZnvdu34wEqgG3nSE6zWZdq5j2DEsa+VvX8i/5HXJOo06qrw5axPXn+lGCxeR+NLaSPIXug==}
 
   '@nestjs/cli@11.0.21':
     resolution: {integrity: sha512-F8mV0Sj/zVEouzR3NxBuJy08YHTUOmC5Xdcx3qIIaJWzrm8Vw86CHkhkaPBJ5ewRMHPDCShPmhsfwhpCcjts3A==}
@@ -1752,8 +1757,10 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@prisma/adapter-neon@7.8.0':
-    resolution: {integrity: sha512-9MoOjRuY53sQNyji87u1NivsK0tIacoUE3PqTxdG95b7ORn1pzwribH2z83j4Vh3eb9nQ/UC+MTfVW7jCFnXlA==}
+  '@prisma/adapter-neon@5.22.0':
+    resolution: {integrity: sha512-yslwDPykmkVfrlyK3T9idewFcjINnqbkHZYJRxetoOZZSjBlJqqhsZxpJ/dEedUzeWaeDlWOgSEKjQKI46/A9w==}
+    peerDependencies:
+      '@neondatabase/serverless': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0
 
   '@prisma/client@5.22.0':
     resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
@@ -1767,11 +1774,8 @@ packages:
   '@prisma/debug@5.22.0':
     resolution: {integrity: sha512-AUt44v3YJeggO2ZU5BkXI7M4hu9BF2zzH2iF2V5pyXT/lRTyWiElZ7It+bRH1EshoMRxHgpYg4VB6rCM+mG5jQ==}
 
-  '@prisma/debug@7.8.0':
-    resolution: {integrity: sha512-p+QZReysDUqXC+mk17q9a+Y/qzh4c2KYliDK30buYUyfrGeTGSyfmc0AIrJRhZJrLHhRiJa9Au/J72h3C+szvA==}
-
-  '@prisma/driver-adapter-utils@7.8.0':
-    resolution: {integrity: sha512-/Q13o0ZT0rjc1Xk0Q9KhZYwuq2EW/vSbWUBKfgEKkaCuB/Sg6bqnjmTZqC5cD4d6y1vfFAEwBRzfzoSMIVJ55A==}
+  '@prisma/driver-adapter-utils@5.22.0':
+    resolution: {integrity: sha512-Y8msGZl9unmVflXoqdxTejv99UD02Gp4VoIvkyw+YxNUIj7nRz35O7yf5D87qNmTiPMGCS1WjUucG9ZuNq8+tw==}
 
   '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2':
     resolution: {integrity: sha512-2PTmxFR2yHW/eB3uqWtcgRcgAbG1rwG9ZriSvQw+nnb7c4uCr3RAcGMb6/zfE88SKlC1Nj2ziUvc96Z379mHgQ==}
@@ -2086,6 +2090,9 @@ packages:
   '@types/pg-pool@2.0.6':
     resolution: {integrity: sha512-TaAUE5rq2VQYxab5Ts7WZhKNmuN78Q6PiFonTDdpbx8a1H0M1vhy3rhiMjl+e2iHmogyMw7jZF4FrE6eJUy5HQ==}
 
+  '@types/pg@8.11.6':
+    resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
+
   '@types/pg@8.6.1':
     resolution: {integrity: sha512-1Kc4oAGzAl7uqUStZCDvaLFqZrW9qWSjXOmBfdgyBP5La7Us6Mg4GBvRlSoaZMhQF/zSj1C8CtKMBkoiT8eL8w==}
 
@@ -2126,6 +2133,9 @@ packages:
 
   '@types/tough-cookie@4.0.0':
     resolution: {integrity: sha512-I99sngh224D0M7XgW1s120zxCt3VYQ3IQsuw3P3jbq5GG4yc79+ZjyKznyOGIQrflfylLgcfekeZW/vk0yng6A==}
+
+  '@types/ws@8.18.1':
+    resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -4608,6 +4618,9 @@ packages:
     resolution: {integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==}
     engines: {node: '>= 0.4'}
 
+  obuf@1.1.2:
+    resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
   ollama@0.6.3:
     resolution: {integrity: sha512-KEWEhIqE5wtfzEIZbDCLH51VFZ6Z3ZSa6sIOg/E/tBV8S51flyqBOXi+bRxlOYKDf8i327zG9eSTb8IJxvm3Zg==}
 
@@ -4745,12 +4758,20 @@ packages:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
 
+  pg-numeric@1.0.2:
+    resolution: {integrity: sha512-BM/Thnrw5jm2kKLE5uJkXqqExRUY/toLHda65XgFTBTFYZyopbKjBe29Ii3RbkvlsMoFwD+tHeGaCjjv0gHlyw==}
+    engines: {node: '>=4'}
+
   pg-protocol@1.14.0:
     resolution: {integrity: sha512-n5taZ1kO3s9ngDTVxsEznOqCyToTgz0FLuPq0B33COy5pPpuWJpY3/2oRBVETuOgzdqRXfWpM9HIhp2LBBT1BA==}
 
   pg-types@2.2.0:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
+
+  pg-types@4.1.0:
+    resolution: {integrity: sha512-o2XFanIMy/3+mThw69O8d4n1E5zsLhdO+OPqswezu7Z5ekP4hYDqlDjlmOpYMbzY2Br0ufCwJLdDIXeNVwcWFg==}
+    engines: {node: '>=10'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -4805,21 +4826,36 @@ packages:
     resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
     engines: {node: '>=4'}
 
-  postgres-array@3.0.4:
-    resolution: {integrity: sha512-nAUSGfSDGOaOAEGwqsRY27GPOea7CNipJPOA7lPbdEpx5Kg3qzdP0AaWC5MlhTWV9s4hFX39nomVZ+C4tnGOJQ==}
+  postgres-array@3.0.2:
+    resolution: {integrity: sha512-6faShkdFugNQCLwucjPcY5ARoW1SlbnrZjmGl0IrrqewpvxvhSLHimCVzqeuULCbG0fQv7Dtk1yDbG3xv7Veog==}
     engines: {node: '>=12'}
 
   postgres-bytea@1.0.1:
     resolution: {integrity: sha512-5+5HqXnsZPE65IJZSMkZtURARZelel2oXUEO8rH83VS/hxH5vv1uHquPg5wZs8yMAfdv971IU+kcPUczi7NVBQ==}
     engines: {node: '>=0.10.0'}
 
+  postgres-bytea@3.0.0:
+    resolution: {integrity: sha512-CNd4jim9RFPkObHSjVHlVrxoVQXz7quwNFpz7RY1okNNme49+sVyiTvTRobiLV548Hx/hb1BG+iE7h9493WzFw==}
+    engines: {node: '>= 6'}
+
   postgres-date@1.0.7:
     resolution: {integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==}
     engines: {node: '>=0.10.0'}
 
+  postgres-date@2.1.0:
+    resolution: {integrity: sha512-K7Juri8gtgXVcDfZttFKVmhglp7epKb1K4pgrkLxehjqkrgPhfG6OO8LHLkfaqkbpjNRnra018XwAr1yQFWGcA==}
+    engines: {node: '>=12'}
+
   postgres-interval@1.2.0:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
+
+  postgres-interval@3.0.0:
+    resolution: {integrity: sha512-BSNDnbyZCXSxgA+1f5UU2GmwhoI0aU5yMxRGO8CdFEcY2BQF9xm/7MqKnYoM1nJDk8nONNWDk9WeSmePFhQdlw==}
+    engines: {node: '>=12'}
+
+  postgres-range@1.1.4:
+    resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -6678,7 +6714,7 @@ snapshots:
       - openai
       - ws
 
-  '@langchain/community@1.1.28(@browserbasehq/sdk@2.12.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3))(@ibm-cloud/watsonx-ai@1.7.12)(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@neondatabase/serverless@1.1.0)(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(ibm-cloud-sdk-core@5.4.20)(ignore@7.0.5)(jsonwebtoken@9.0.3)(lodash@4.18.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(playwright@1.60.0)(puppeteer@25.0.4(typescript@5.9.2))(ws@8.21.0)':
+  '@langchain/community@1.1.28(@browserbasehq/sdk@2.12.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3))(@ibm-cloud/watsonx-ai@1.7.12)(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.1)(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.1))(ibm-cloud-sdk-core@5.4.20)(ignore@7.0.5)(jsonwebtoken@9.0.3)(lodash@4.18.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(playwright@1.60.0)(puppeteer@25.0.4(typescript@5.9.2))(ws@8.21.0)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.1)(openai@6.39.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
       '@ibm-cloud/watsonx-ai': 1.7.12
@@ -6696,7 +6732,7 @@ snapshots:
       zod: 4.4.3
     optionalDependencies:
       '@browserbasehq/sdk': 2.12.0
-      '@neondatabase/serverless': 1.1.0
+      '@neondatabase/serverless': 0.9.5
       ignore: 7.0.5
       jsonwebtoken: 9.0.3
       lodash: 4.18.1
@@ -6753,7 +6789,9 @@ snapshots:
       '@tybys/wasm-util': 0.10.2
     optional: true
 
-  '@neondatabase/serverless@1.1.0': {}
+  '@neondatabase/serverless@0.9.5':
+    dependencies:
+      '@types/pg': 8.11.6
 
   '@nestjs/cli@11.0.21(@types/node@24.12.4)(prettier@3.7.4)':
     dependencies:
@@ -7185,11 +7223,11 @@ snapshots:
     dependencies:
       playwright: 1.60.0
 
-  '@prisma/adapter-neon@7.8.0':
+  '@prisma/adapter-neon@5.22.0(@neondatabase/serverless@0.9.5)':
     dependencies:
-      '@neondatabase/serverless': 1.1.0
-      '@prisma/driver-adapter-utils': 7.8.0
-      postgres-array: 3.0.4
+      '@neondatabase/serverless': 0.9.5
+      '@prisma/driver-adapter-utils': 5.22.0
+      postgres-array: 3.0.2
 
   '@prisma/client@5.22.0(prisma@5.22.0)':
     optionalDependencies:
@@ -7197,11 +7235,9 @@ snapshots:
 
   '@prisma/debug@5.22.0': {}
 
-  '@prisma/debug@7.8.0': {}
-
-  '@prisma/driver-adapter-utils@7.8.0':
+  '@prisma/driver-adapter-utils@5.22.0':
     dependencies:
-      '@prisma/debug': 7.8.0
+      '@prisma/debug': 5.22.0
 
   '@prisma/engines-version@5.22.0-44.605197351a3c8bdd595af2d2a9bc3025bca48ea2': {}
 
@@ -7569,6 +7605,12 @@ snapshots:
     dependencies:
       '@types/pg': 8.6.1
 
+  '@types/pg@8.11.6':
+    dependencies:
+      '@types/node': 24.12.4
+      pg-protocol: 1.14.0
+      pg-types: 4.1.0
+
   '@types/pg@8.6.1':
     dependencies:
       '@types/node': 24.12.4
@@ -7617,6 +7659,10 @@ snapshots:
       '@types/node': 24.12.4
 
   '@types/tough-cookie@4.0.0': {}
+
+  '@types/ws@8.18.1':
+    dependencies:
+      '@types/node': 24.12.4
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -10452,6 +10498,8 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
+  obuf@1.1.2: {}
+
   ollama@0.6.3:
     dependencies:
       whatwg-fetch: 3.6.20
@@ -10596,6 +10644,8 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
+  pg-numeric@1.0.2: {}
+
   pg-protocol@1.14.0: {}
 
   pg-types@2.2.0:
@@ -10605,6 +10655,16 @@ snapshots:
       postgres-bytea: 1.0.1
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
+
+  pg-types@4.1.0:
+    dependencies:
+      pg-int8: 1.0.1
+      pg-numeric: 1.0.2
+      postgres-array: 3.0.2
+      postgres-bytea: 3.0.0
+      postgres-date: 2.1.0
+      postgres-interval: 3.0.0
+      postgres-range: 1.1.4
 
   picocolors@1.1.1: {}
 
@@ -10646,15 +10706,25 @@ snapshots:
 
   postgres-array@2.0.0: {}
 
-  postgres-array@3.0.4: {}
+  postgres-array@3.0.2: {}
 
   postgres-bytea@1.0.1: {}
 
+  postgres-bytea@3.0.0:
+    dependencies:
+      obuf: 1.1.2
+
   postgres-date@1.0.7: {}
+
+  postgres-date@2.1.0: {}
 
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
+
+  postgres-interval@3.0.0: {}
+
+  postgres-range@1.1.4: {}
 
   prelude-ls@1.2.1: {}
 

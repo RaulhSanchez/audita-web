@@ -24,12 +24,12 @@
     "@langchain/community": "^1.1.28",
     "@langchain/core": "^1.1.48",
     "@langchain/ollama": "^1.2.7",
-    "@neondatabase/serverless": "^1.1.0",
+    "@neondatabase/serverless": "^0.9.5",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
-    "@prisma/adapter-neon": "^7.8.0",
+    "@prisma/adapter-neon": "^5.22.0",
     "@prisma/client": "5",
     "@repo/shared": "workspace:^",
     "chrome-launcher": "^1.2.1",
@@ -37,7 +37,8 @@
     "lighthouse": "^13.3.0",
     "puppeteer": "^25.0.4",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -49,6 +50,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
     "@types/supertest": "^7.0.0",
+    "@types/ws": "^8.18.1",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
