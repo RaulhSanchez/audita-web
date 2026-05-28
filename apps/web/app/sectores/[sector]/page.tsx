@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { AuditForm } from '../../components/AuditForm';
 
 interface PageProps {
-  params: { sector: string };
+  params: Promise<{ sector: string }>;
 }
 
 export async function generateStaticParams() {
@@ -14,16 +14,18 @@ export async function generateStaticParams() {
   ];
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const sectorName = params.sector.replace('-', ' ');
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { sector } = await params;
+  const sectorName = sector.replace('-', ' ');
   return {
     title: `Auditoría Web Gratis para ${sectorName.charAt(0).toUpperCase() + sectorName.slice(1)}`,
     description: `Descubre por qué tu ${sectorName} está perdiendo clientes en Google y cómo solucionarlo gratis en 60 segundos.`,
   };
 }
 
-export default function SectorPage({ params }: PageProps) {
-  const sectorName = params.sector.replace('-', ' ');
+export default async function SectorPage({ params }: PageProps) {
+  const { sector } = await params;
+  const sectorName = sector.replace('-', ' ');
 
   return (
     <main className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 text-center">
