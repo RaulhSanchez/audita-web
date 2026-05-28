@@ -282,14 +282,18 @@ export class ChecksSeeder implements OnModuleInit {
   constructor(private prisma: PrismaService) {}
 
   async onModuleInit() {
-    this.logger.log('Seeding FindingCatalog...');
-    for (const item of [...INITIAL_CATALOG, ...EXTENDED_CATALOG]) {
-      await this.prisma.findingCatalog.upsert({
-        where: { code: item.code },
-        update: item,
-        create: item,
-      });
+    try {
+      this.logger.log('Seeding FindingCatalog...');
+      for (const item of [...INITIAL_CATALOG, ...EXTENDED_CATALOG]) {
+        await this.prisma.findingCatalog.upsert({
+          where: { code: item.code },
+          update: item,
+          create: item,
+        });
+      }
+      this.logger.log('Seeding completed.');
+    } catch (e) {
+      this.logger.error('Seeding failed (DB unavailable?): ' + (e as Error).message);
     }
-    this.logger.log('Seeding completed.');
   }
 }
