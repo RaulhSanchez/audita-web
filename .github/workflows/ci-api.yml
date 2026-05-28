@@ -27,10 +27,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build API
-        run: pnpm --filter api build
-
       - name: Prisma generate
         run: cd apps/api && npx prisma generate
         env:
           DATABASE_URL: "postgresql://placeholder:placeholder@localhost/placeholder"
+
+      - name: Build API
+        run: pnpm --filter api build
