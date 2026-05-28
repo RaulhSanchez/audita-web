@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const SCORE_LABEL: Record<string, string> = {
   performance: 'Rendimiento', seo: 'SEO', security: 'Seguridad',
@@ -14,14 +14,15 @@ function scoreColor(v: number) {
   return 'text-red-400';
 }
 
-export default function PublicReportPage() {
-  const { slug } = useParams<{ slug: string }>();
+function ReportContent() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get('id');
   const [audit, setAudit] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    if (!slug) return;
+    if (!slug) { setNotFound(true); setLoading(false); return; }
     const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
     fetch(`${apiBase}/api/audits/public/${slug}`)
       .then((r) => (r.ok ? r.json() : null))
@@ -69,7 +70,6 @@ export default function PublicReportPage() {
           )}
         </header>
 
-        {/* Score global + desglose */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           <div className="bg-white/5 rounded-2xl p-8 border border-white/10 text-center flex flex-col justify-center items-center">
             <p className="text-slate-400 uppercase tracking-widest text-xs mb-4">Puntuación Global</p>
@@ -90,7 +90,6 @@ export default function PublicReportPage() {
           </div>
         </div>
 
-        {/* Narrativa */}
         {audit.narrative && (
           <div className="mb-12 bg-indigo-950/30 rounded-2xl p-8 border border-indigo-500/30">
             <h2 className="text-xl font-bold mb-4 text-indigo-300">Diagnóstico de negocio</h2>
@@ -100,7 +99,6 @@ export default function PublicReportPage() {
           </div>
         )}
 
-        {/* Hallazgos — solo los top 3 para motivar el contacto */}
         {audit.findings?.length > 0 && (
           <div>
             <h2 className="text-xl font-bold mb-6">Principales problemas detectados</h2>
@@ -127,7 +125,6 @@ export default function PublicReportPage() {
                 })}
             </div>
 
-            {/* CTA */}
             <div className="rounded-2xl border border-indigo-500/30 bg-indigo-950/40 p-8 text-center">
               <p className="text-white font-bold text-xl mb-2">
                 {audit.findings.length > 3
@@ -138,16 +135,10 @@ export default function PublicReportPage() {
                 El informe PDF completo con todos los hallazgos y su impacto en tu negocio — o escríbeme directamente.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <a
-                  href="/"
-                  className="rounded-xl bg-indigo-600 px-6 py-3 text-white font-semibold hover:bg-indigo-500 transition-all text-sm"
-                >
+                <a href="/" className="rounded-xl bg-indigo-600 px-6 py-3 text-white font-semibold hover:bg-indigo-500 transition-all text-sm">
                   Audita otra web
                 </a>
-                <a
-                  href="mailto:raaul9212@gmail.com"
-                  className="rounded-xl bg-white/10 border border-white/15 px-6 py-3 text-white font-semibold hover:bg-white/15 transition-all text-sm"
-                >
+                <a href="mailto:raaul9212@gmail.com" className="rounded-xl bg-white/10 border border-white/15 px-6 py-3 text-white font-semibold hover:bg-white/15 transition-all text-sm">
                   Contactar con Raúl
                 </a>
               </div>
@@ -156,5 +147,17 @@ export default function PublicReportPage() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function PublicReportPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <p className="text-slate-400 text-lg animate-pulse">Cargando informe…</p>
+      </main>
+    }>
+      <ReportContent />
+    </Suspense>
   );
 }

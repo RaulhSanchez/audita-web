@@ -113,7 +113,7 @@ export class AuditService {
         await this.sendReportEmail(email, url, auditId, pdfBuffer, result.globalScore);
       }
 
-      this.telegramService.sendMessage(`✅ <b>Auditoría completada</b>\nURL: ${url}\nPuntuación: ${result.globalScore}/100\nLink: ${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/report/${auditId}`);
+      this.telegramService.sendMessage(`✅ <b>Auditoría completada</b>\nURL: ${url}\nPuntuación: ${result.globalScore}/100\nLink: ${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/report/?id=${auditId}`);
       this.logger.log(`Audit ${auditId} completed successfully.`);
     } catch (e) {
       this.logger.error(`Error processing audit ${auditId}`, e);
@@ -134,7 +134,7 @@ export class AuditService {
     }
 
     const hostname = new URL(url).hostname;
-    const reportUrl = `${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/report/${auditId}`;
+    const reportUrl = `${process.env.FRONTEND_BASE_URL || 'http://localhost:3000'}/report/?id=${auditId}`;
 
     try {
       await this.mailService.send(
