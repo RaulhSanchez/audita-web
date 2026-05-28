@@ -92,7 +92,10 @@ export class PdfService {
       });
 
       const puppeteer = (await import('puppeteer')).default;
-      const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+      const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--no-zygote'],
+      });
       const page = await browser.newPage();
       
       await page.setContent(html, { waitUntil: 'domcontentloaded' });

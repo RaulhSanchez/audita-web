@@ -79,13 +79,22 @@ No uses tecnicismos como "DOM", "CSS", "Headers" o similares sin explicarlos en 
   }
 
   private generateFallback(params: NarrativeInput): string {
-    let narrative = `### Resumen Ejecutivo\n\nHemos analizado tu página web y ha obtenido una puntuación global de **${params.globalScore}/100**.\n`;
-    narrative += '\n### Problemas detectados\n\n';
-    const criticalFindings = params.findings.filter(f => f.severity === 'critical' || f.severity === 'high').slice(0, 3);
-    for (const finding of criticalFindings) {
-        narrative += `- **${finding.code}**: Requiere revisión urgente por impacto negativo en el rendimiento de la web.\n`;
+    const qualifier =
+      params.globalScore >= 80 ? 'buena forma, aunque con margen de mejora'
+      : params.globalScore >= 50 ? 'un nivel aceptable pero con problemas que frenan su rendimiento'
+      : 'un estado que requiere atención urgente';
+
+    let text = `Tu web ha obtenido una puntuación global de ${params.globalScore}/100, lo que indica que está en ${qualifier}.\n\n`;
+
+    const urgent = params.findings.filter(f => f.severity === 'critical' || f.severity === 'high').slice(0, 3);
+    if (urgent.length > 0) {
+      text += 'Los problemas más importantes detectados afectan directamente a cómo te encuentran tus clientes y a la confianza que genera tu web. Resolverlos puede marcar la diferencia entre perder o ganar un cliente potencial.\n\n';
+      text += 'Si quieres que me encargue de solucionarlo todo, escríbeme a raaul9212@gmail.com o visita zero2dev.es.';
+    } else {
+      text += 'Tu web está en buena forma. Aun así, hay mejoras puntuales que pueden aumentar tu visibilidad en Google y mejorar la experiencia de tus clientes.\n\n';
+      text += 'Si quieres exprimir al máximo el potencial de tu web, puedo ayudarte. Escríbeme a raaul9212@gmail.com.';
     }
-    narrative += '\n### Siguiente paso\n\nAgenda una llamada para resolver estos problemas.';
-    return narrative;
+
+    return text;
   }
 }

@@ -44,7 +44,7 @@ export class AggregatorService {
     try {
       const lighthouse = (await import('lighthouse')).default;
       const chromeLauncher = await import('chrome-launcher');
-      const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'] });
+      const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-zygote'] });
       const runnerResult = await lighthouse(url, {
         logLevel: 'error' as const,
         output: 'json' as const,
