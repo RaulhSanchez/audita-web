@@ -5,7 +5,7 @@ services:
     plan: free
     region: frankfurt
     buildCommand: npm install -g pnpm@9 && pnpm install --frozen-lockfile && cd apps/api && npx prisma generate && cd ../.. && pnpm --filter api build
-    startCommand: cd apps/api && npx prisma db push && node dist/src/main
+    startCommand: cd apps/api && node --max-old-space-size=450 dist/src/main
     envVars:
       - key: NODE_ENV
         value: production
