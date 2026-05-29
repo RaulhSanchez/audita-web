@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     region: frankfurt
-    buildCommand: npm install -g pnpm@9 && NODE_ENV=development pnpm install --no-frozen-lockfile && pnpm --filter api build
+    buildCommand: npm install -g pnpm@9 && NODE_ENV=development pnpm install --no-frozen-lockfile && pnpm --filter api build && PUPPETEER_CACHE_DIR=/opt/render/.cache/puppeteer npx puppeteer browsers install chrome
     startCommand: cd apps/api && node --max-old-space-size=450 dist/src/main
     envVars:
       - key: NODE_ENV
@@ -27,5 +27,5 @@ services:
         value: ""            # no disponible en la nube — narrativa usa fallback automático
       - key: OLLAMA_MODEL
         value: llama3.2
-      - key: PUPPETEER_SKIP_DOWNLOAD
-        value: "true"           # no Chromium on Render — Lighthouse & PDF use fallback paths
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/.cache/puppeteer
