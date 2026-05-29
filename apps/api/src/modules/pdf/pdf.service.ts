@@ -95,11 +95,14 @@ export class PdfService {
       if (process.env.NODE_ENV === 'production') {
         const chromium = (await import('@sparticuz/chromium-min')).default;
         const puppeteerCore = (await import('puppeteer-core')).default;
-        const executablePath = await chromium.executablePath(
-          'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar',
-        );
+        const chromiumUrl = 'https://github.com/Sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar';
+        const executablePath = await chromium.executablePath(chromiumUrl);
+        this.logger.log(`Chromium executablePath: "${executablePath}"`);
+        if (!executablePath) {
+          throw new Error('chromium-min returned empty executablePath — download may have failed');
+        }
         browser = await puppeteerCore.launch({
-          args: chromium.args,
+          args: [...chromium.args, '--no-sandbox', '--disable-dev-shm-usage', '--no-zygote'],
           executablePath,
           headless: true,
         });
