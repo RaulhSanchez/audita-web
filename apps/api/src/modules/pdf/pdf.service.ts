@@ -91,11 +91,25 @@ export class PdfService {
         totalFindings: findings.length,
       });
 
-      const puppeteer = (await import('puppeteer')).default;
-      const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--no-zygote'],
-      });
+      let browser: import('puppeteer-core').Browser;
+      if (process.env.NODE_ENV === 'production') {
+        const chromium = (await import('@sparticuz/chromium-min')).default;
+        const puppeteerCore = (await import('puppeteer-core')).default;
+        const executablePath = await chromium.executablePath(
+          'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar',
+        );
+        browser = await puppeteerCore.launch({
+          args: chromium.args,
+          executablePath,
+          headless: true,
+        });
+      } else {
+        const puppeteer = (await import('puppeteer')).default;
+        browser = await puppeteer.launch({
+          headless: true,
+          args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--no-zygote'],
+        }) as unknown as import('puppeteer-core').Browser;
+      }
       const page = await browser.newPage();
       
       await page.setContent(html, { waitUntil: 'domcontentloaded' });

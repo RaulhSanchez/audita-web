@@ -27,5 +27,7 @@ services:
         value: ""            # no disponible en la nube — narrativa usa fallback automático
       - key: OLLAMA_MODEL
         value: llama3.2
+      - key: PUPPETEER_SKIP_DOWNLOAD
+        value: "true"
       - key: PUPPETEER_CACHE_DIR
         value: /opt/render/.cache/puppeteer

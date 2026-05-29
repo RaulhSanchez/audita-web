@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "prisma generate && nest build && puppeteer browsers install chrome",
+    "build": "prisma generate && nest build",
     "dev": "nest start --watch",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -35,7 +35,9 @@
     "chrome-launcher": "^1.2.1",
     "handlebars": "^4.7.9",
     "lighthouse": "^13.3.0",
+    "@sparticuz/chromium-min": "^131.0.1",
     "puppeteer": "^25.0.4",
+    "puppeteer-core": "^25.0.4",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "ws": "^8.21.0"
