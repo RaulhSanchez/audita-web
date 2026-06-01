@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { ChatOllama } from '@langchain/ollama';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { StringOutputParser } from '@langchain/core/output_parsers';
@@ -15,18 +16,12 @@ export interface NarrativeInput {
 @Injectable()
 export class NarrativeService {
   private readonly logger = new Logger(NarrativeService.name);
-  private llm: ChatOllama;
 
-  constructor(private prisma: PrismaService) {
-    this.llm = new ChatOllama({
-      baseUrl: process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434',
-      model: process.env.OLLAMA_MODEL ?? 'llama3.2',
-      temperature: 0.3,
-    });
-  }
+  constructor(private prisma: PrismaService) {}
 
   async generate(params: NarrativeInput): Promise<string> {
-    this.logger.log(`Generando narrativa con Ollama para ${params.url}`);
+    const provider = process.env.GEMINI_API_KEY ? 'Gemini' : 'Ollama';
+    this.logger.log(`Generando narrativa con ${provider} para ${params.url}`);
     
     // Fetch catalog entries for findings
     const codes = params.findings.map(f => f.code);
@@ -63,17 +58,32 @@ Escribe un texto en formato Markdown persuasivo, directo y profesional (español
 No uses tecnicismos como "DOM", "CSS", "Headers" o similares sin explicarlos en lenguaje llano.
 `);
 
-    const chain = prompt.pipe(this.llm).pipe(new StringOutputParser());
-
     try {
+      let llm: ChatGoogleGenerativeAI | ChatOllama;
+      if (process.env.GEMINI_API_KEY) {
+        llm = new ChatGoogleGenerativeAI({
+          model: 'gemini-1.5-flash',
+          apiKey: process.env.GEMINI_API_KEY,
+          temperature: 0.3,
+        });
+      } else {
+        llm = new ChatOllama({
+          baseUrl: process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434',
+          model: process.env.OLLAMA_MODEL ?? 'llama3.2',
+          temperature: 0.3,
+        });
+      }
+
+      const chain = prompt.pipe(llm).pipe(new StringOutputParser());
       const response = await chain.invoke({
         url: params.url,
         globalScore: params.globalScore.toString(),
         findings: enrichedFindings,
       });
+      this.logger.log(`Narrativa generada con ${provider} (${response.length} chars)`);
       return response;
     } catch (e) {
-      this.logger.error('Error llamando a Ollama, usando fallback', e);
+      this.logger.error(`Error llamando a ${provider}, usando fallback`, e);
       return this.generateFallback(params);
     }
   }
