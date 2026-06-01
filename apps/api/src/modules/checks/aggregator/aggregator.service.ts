@@ -7,6 +7,7 @@ import { SecurityRunner } from '../runners/security.runner';
 import { MobileRunner } from '../runners/mobile.runner';
 import { SocialRunner } from '../runners/social.runner';
 import { LegalRunner } from '../runners/legal.runner';
+import { PerformanceRunner } from '../runners/performance.runner';
 
 @Injectable()
 export class AggregatorService {
@@ -20,30 +21,39 @@ export class AggregatorService {
     private readonly mobileRunner: MobileRunner,
     private readonly socialRunner: SocialRunner,
     private readonly legalRunner: LegalRunner,
+    private readonly performanceRunner: PerformanceRunner,
   ) {}
 
-  async runAll(url: string): Promise<{ findings: Finding[]; scores: Record<string, number>; globalScore: number }> {
+  async runAll(url: string): Promise<{ findings: Finding[]; scores: Record<string, number>; globalScore: number; pageStats: Record<string, number> }> {
     const findings: Finding[] = [];
     const scores: Record<string, number> = {};
 
-    // Fetch HTML and headers (shared across all custom runners)
+    // Fetch HTML + measure TTFB
     let html = '';
     let headers: Record<string, string> = {};
+    let responseTimeMs = 0;
+    let htmlSizeBytes = 0;
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AuditBot/1.0)' } });
+      const t0 = Date.now();
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AuditBot/1.0)' },
+        signal: AbortSignal.timeout(15000),
+      });
       html = await res.text();
+      responseTimeMs = Date.now() - t0;
+      htmlSizeBytes = Buffer.byteLength(html, 'utf8');
       res.headers.forEach((value, key) => { headers[key.toLowerCase()] = value; });
-      this.logger.log(`Fetched HTML for ${url} (${html.length} bytes)`);
+      this.logger.log(`Fetched HTML for ${url} (${htmlSizeBytes} bytes, ${responseTimeMs}ms)`);
     } catch (e) {
       this.logger.warn(`Could not fetch HTML for ${url}: ${e}`);
     }
 
-    const ctx: CheckContext = { url, html, headers };
+    const ctx: CheckContext = { url, html, headers, responseTimeMs, htmlSizeBytes };
 
-    // 1. Lighthouse (optional — skipped when no Chromium available e.g. Render free tier)
+    // 1. Lighthouse (optional)
     try {
       if (process.env.PUPPETEER_SKIP_DOWNLOAD === 'true') {
-        throw new Error('Lighthouse skipped: no Chromium (PUPPETEER_SKIP_DOWNLOAD=true)');
+        throw new Error('Lighthouse skipped: PUPPETEER_SKIP_DOWNLOAD=true');
       }
       const lighthouse = (await import('lighthouse')).default;
       const chromeLauncher = await import('chrome-launcher');
@@ -67,7 +77,7 @@ export class AggregatorService {
     }
 
     // 2. All custom runners in parallel
-    const [lhFindings, seoFindings, seoAdvFindings, secFindings, mobFindings, socFindings, legFindings] =
+    const [lhFindings, seoFindings, seoAdvFindings, secFindings, mobFindings, socFindings, legFindings, perfFindings] =
       await Promise.all([
         this.lighthouseRunner.run(ctx),
         this.seoRunner.run(ctx),
@@ -76,30 +86,30 @@ export class AggregatorService {
         this.mobileRunner.run(ctx),
         this.socialRunner.run(ctx),
         this.legalRunner.run(ctx),
+        this.performanceRunner.run(ctx),
       ]);
 
-    findings.push(...lhFindings, ...seoFindings, ...seoAdvFindings, ...secFindings, ...mobFindings, ...socFindings, ...legFindings);
+    findings.push(...lhFindings, ...seoFindings, ...seoAdvFindings, ...secFindings, ...mobFindings, ...socFindings, ...legFindings, ...perfFindings);
 
-    // 3. Compute derived scores
-    const severity = (arr: Finding[], s: string) => arr.filter((f) => f.severity === s).length;
+    // 3. Derived scores (penalización por findings)
+    const pen = (arr: Finding[]) =>
+      arr.filter(f => f.severity === 'critical').length * 25 +
+      arr.filter(f => f.severity === 'high').length * 12 +
+      arr.filter(f => f.severity === 'medium').length * 6;
 
-    scores.security = Math.max(0, 100
-      - severity(secFindings, 'critical') * 30
-      - severity(secFindings, 'high') * 15
-      - severity(secFindings, 'medium') * 8);
+    if (!scores.security) scores.security = Math.max(0, 100 - pen(secFindings));
+    if (!scores.mobile)   scores.mobile   = Math.max(0, 100 - pen(mobFindings));
+    if (!scores.seo)      scores.seo      = Math.max(0, 100 - pen([...seoFindings, ...seoAdvFindings]));
 
-    scores.mobile = Math.max(0, 100
-      - severity(mobFindings, 'critical') * 30
-      - severity(mobFindings, 'high') * 15
-      - severity(mobFindings, 'medium') * 8);
-
-    // 4. Global score — average of all non-zero scores
-    const available = Object.values(scores).filter((s) => s > 0);
+    // 4. Global score
+    const available = Object.values(scores).filter(s => s > 0);
     const globalScore = available.length > 0
       ? Math.round(available.reduce((a, b) => a + b, 0) / available.length)
-      : 0;
+      : 50;
+
+    const pageStats = { responseTimeMs: Math.round(responseTimeMs), htmlSizeKb: Math.round(htmlSizeBytes / 1024) };
 
     this.logger.log(`Scores: ${JSON.stringify(scores)} → global=${globalScore} findings=${findings.length}`);
-    return { findings, scores, globalScore };
+    return { findings, scores, globalScore, pageStats };
   }
 }

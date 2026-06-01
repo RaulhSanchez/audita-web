@@ -275,6 +275,104 @@ const catalog = [
     businessImpact: 'Un usuario interesado llega a tu web pero no sabe qué hacer a continuación. Sin botones o textos que le guíen ("Llámanos", "Pide presupuesto", "Contáctanos"), muchos se van sin contactarte. Estás atrayendo visitas pero no las conviertes en clientes.',
     fixSuggestion: 'Añade al menos un botón de acción visible en la parte superior de la página ("Solicitar presupuesto gratis", "Llamar ahora", "WhatsApp"). Repítelo al final de cada sección importante.',
   },
+
+  // ─── SEGURIDAD (nuevos) ─────────────────────────────────────────────────────
+  {
+    code: 'SEC_MIXED_CONTENT',
+    category: 'security',
+    severity: 'high',
+    titleEs: 'Recursos inseguros en una web segura',
+    descriptionEs: 'Tu web usa HTTPS pero carga imágenes, scripts o estilos desde URLs sin cifrar (HTTP).',
+    businessImpact: 'Los navegadores bloquean automáticamente estos recursos o muestran advertencias de seguridad visibles al usuario. Esto reduce la confianza, puede romper partes de tu web y afecta negativamente al posicionamiento en Google.',
+    fixSuggestion: 'Cambia todas las URLs de recursos a HTTPS. Busca en el código fuente referencias a "http://" y actualízalas. Si usas un CMS como WordPress, el plugin "Better Search Replace" puede hacerlo automáticamente.',
+  },
+  {
+    code: 'SEC_SERVER_EXPOSED',
+    category: 'security',
+    severity: 'low',
+    titleEs: 'El servidor revela información técnica',
+    descriptionEs: 'La cabecera Server del servidor web expone información sobre el software y versión utilizada.',
+    businessImpact: 'Los atacantes usan esta información para buscar vulnerabilidades conocidas de esa versión concreta. Es información innecesaria que solo beneficia a quienes quieren comprometer tu web.',
+    fixSuggestion: 'Configura tu servidor web (Apache, Nginx, etc.) para ocultar o minimizar la cabecera Server. Tu proveedor de hosting puede hacerlo en minutos.',
+  },
+
+  // ─── SEO (nuevos) ──────────────────────────────────────────────────────────
+  {
+    code: 'SEO_NO_LANG',
+    category: 'seo',
+    severity: 'medium',
+    titleEs: 'Google no sabe en qué idioma está tu web',
+    descriptionEs: 'Tu web no tiene declarado el idioma principal en el código HTML.',
+    businessImpact: 'Google y otros buscadores usan el atributo de idioma para mostrar tu web a usuarios del idioma correcto. Sin él, puedes aparecer en búsquedas del idioma incorrecto o perder relevancia local. Los lectores de pantalla también dependen de esto para las personas con discapacidad.',
+    fixSuggestion: 'Añade el atributo lang al elemento HTML principal. Para español: <html lang="es">. Si tienes contenido en varios idiomas, usa hreflang.',
+  },
+  {
+    code: 'SEO_META_DESC_LENGTH',
+    category: 'seo',
+    severity: 'medium',
+    titleEs: 'La descripción en Google no tiene el tamaño óptimo',
+    descriptionEs: 'La meta descripción de tu web es demasiado corta o demasiado larga para aparecer completa en los resultados de búsqueda.',
+    businessImpact: 'Una descripción demasiado larga se corta con "..." en Google, perdiendo parte del mensaje. Una muy corta no aprovecha el espacio para convencer al usuario. En ambos casos reduces los clics que recibes desde buscadores.',
+    fixSuggestion: 'Ajusta la meta descripción a entre 120 y 158 caracteres. Incluye tu servicio principal, localidad y una llamada a la acción como "Solicita tu presupuesto gratis".',
+  },
+
+  // ─── SOCIAL (nuevos) ────────────────────────────────────────────────────────
+  {
+    code: 'SOC_NO_SOCIAL_PROFILES',
+    category: 'social',
+    severity: 'medium',
+    titleEs: 'Sin enlaces a redes sociales',
+    descriptionEs: 'Tu web no enlaza a ningún perfil en redes sociales (Facebook, Instagram, LinkedIn o Twitter/X).',
+    businessImpact: 'Las redes sociales son una señal de confianza para los visitantes. Un negocio sin presencia en redes parece menos establecido. Además, pierdes la oportunidad de que los visitantes te sigan y reciban tus novedades.',
+    fixSuggestion: 'Añade iconos con enlace a tus perfiles sociales activos en el footer o cabecera. Si no tienes redes sociales, considera crear al menos un perfil de Google Business y uno de Instagram o LinkedIn según tu sector.',
+  },
+  {
+    code: 'SOC_NO_GOOGLE_MAPS',
+    category: 'social',
+    severity: 'low',
+    titleEs: 'Sin ubicación en el mapa',
+    descriptionEs: 'Tu web no muestra un mapa de Google con tu localización.',
+    businessImpact: 'Los clientes que quieren visitar tu negocio tienen que buscar tu dirección por separado. Un mapa integrado genera confianza y facilita que lleguen a tu local, aumentando las visitas físicas.',
+    fixSuggestion: 'Incrusta un Google Maps con la ubicación de tu negocio en la página de contacto. Además, da de alta o reclama tu ficha en Google Business Profile para aparecer en las búsquedas locales.',
+  },
+  {
+    code: 'SOC_NO_CONTACT_FORM',
+    category: 'social',
+    severity: 'medium',
+    titleEs: 'Sin formulario de contacto',
+    descriptionEs: 'Tu web no tiene un formulario de contacto que permita a los visitantes enviarte un mensaje directamente.',
+    businessImpact: 'Muchos usuarios prefieren enviar un mensaje por formulario antes que llamar o buscar tu email. Sin formulario, pierdes los contactos de personas interesadas pero que no dan el paso de llamar. Es una fuente de leads que estás dejando ir.',
+    fixSuggestion: 'Añade un formulario de contacto sencillo (nombre, email, mensaje) en tu página de contacto. Existen soluciones gratuitas como Contact Form 7 para WordPress o Formspree para webs estáticas.',
+  },
+
+  // ─── RENDIMIENTO (nuevos) ──────────────────────────────────────────────────
+  {
+    code: 'PERF_TTFB_HIGH',
+    category: 'performance',
+    severity: 'high',
+    titleEs: 'El servidor tarda demasiado en responder',
+    descriptionEs: 'El tiempo hasta que el servidor empieza a enviar datos (TTFB) es superior a 1,5 segundos.',
+    businessImpact: 'Google usa el tiempo de respuesta del servidor como factor de posicionamiento directo. Un servidor lento penaliza tu visibilidad en buscadores y aumenta el abandono antes de que el usuario vea nada. Parece que la web está caída aunque esté funcionando.',
+    fixSuggestion: 'Contrata un hosting con mejor rendimiento, activa la caché del servidor o usa una CDN. Si usas WordPress, plugins como WP Rocket o W3 Total Cache pueden reducir drásticamente el tiempo de respuesta.',
+  },
+  {
+    code: 'PERF_PAGE_HEAVY',
+    category: 'performance',
+    severity: 'medium',
+    titleEs: 'La página pesa demasiado',
+    descriptionEs: 'El HTML de la página principal supera los 500 KB, lo que indica un exceso de código o contenido incrustado.',
+    businessImpact: 'Una página pesada tarda más en descargarse, especialmente en conexiones móviles lentas. Esto incrementa el tiempo de carga y dispara el abandono de usuarios antes de que vean tu oferta.',
+    fixSuggestion: 'Revisa si hay código CSS o JavaScript incrustado directamente en la página que pueda moverse a archivos externos. Comprime el código HTML y elimina espacios y comentarios innecesarios en producción.',
+  },
+  {
+    code: 'PERF_TOO_MANY_SCRIPTS',
+    category: 'performance',
+    severity: 'medium',
+    titleEs: 'Demasiados scripts externos ralentizan la carga',
+    descriptionEs: 'Tu web carga más de 15 archivos JavaScript externos, lo que aumenta significativamente el tiempo de carga.',
+    businessImpact: 'Cada script externo es una petición adicional al servidor que retrasa la carga de la página. Con más de 15, la acumulación es notable en dispositivos lentos o conexiones móviles. Esto impacta directamente en la experiencia del usuario y en tu posicionamiento.',
+    fixSuggestion: 'Combina y minimiza los scripts JavaScript. Elimina plugins o scripts que no uses activamente. Considera cargar scripts no críticos de forma diferida (lazy loading).',
+  },
 ];
 
 async function main() {

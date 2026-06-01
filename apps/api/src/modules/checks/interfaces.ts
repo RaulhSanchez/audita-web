@@ -3,6 +3,8 @@ export interface CheckContext {
   html: string;
   lighthouse?: any;
   headers?: Record<string, string>;
+  responseTimeMs?: number;
+  htmlSizeBytes?: number;
 }
 
 export interface Finding {

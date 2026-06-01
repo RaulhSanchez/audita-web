@@ -96,6 +96,7 @@ export class AuditService {
           scores: result.scores,
           findings: enrichedForPdf,
           narrative: narrativeText,
+          pageStats: result.pageStats,
         });
 
         const reportsDir = path.resolve(process.env.REPORTS_DIR || path.join(process.cwd(), 'reports'));

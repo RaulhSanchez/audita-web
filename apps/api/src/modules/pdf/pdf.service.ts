@@ -48,6 +48,7 @@ handlebars.registerHelper('fmtNum', (n: number) => {
   if (n == null) return '';
   return Number.isInteger(n) ? String(n) : parseFloat(n.toFixed(2)).toString();
 });
+handlebars.registerHelper('add', (a: number, b: number) => a + b);
 handlebars.registerHelper('scoreAreaName', (key: string) => {
   const map: Record<string, string> = {
     performance: 'Rendimiento', seo: 'SEO', security: 'Seguridad', accessibility: 'Accesibilidad',

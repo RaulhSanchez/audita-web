@@ -7,6 +7,7 @@ import { SecurityRunner } from './runners/security.runner';
 import { MobileRunner } from './runners/mobile.runner';
 import { SocialRunner } from './runners/social.runner';
 import { LegalRunner } from './runners/legal.runner';
+import { PerformanceRunner } from './runners/performance.runner';
 import { ChecksSeeder } from './checks.seeder';
 
 @Module({
@@ -19,6 +20,7 @@ import { ChecksSeeder } from './checks.seeder';
     MobileRunner,
     SocialRunner,
     LegalRunner,
+    PerformanceRunner,
     ChecksSeeder,
   ],
   exports: [AggregatorService],

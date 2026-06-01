@@ -88,14 +88,14 @@
       border-radius: 8px;
       font-size: 13px;
       color: #e0e7ff;
-      margin-bottom: 72px;
+      margin-bottom: 56px;
       word-break: break-all;
     }
 
     .cover-score-row {
       display: table;
       width: 100%;
-      margin-bottom: 72px;
+      margin-bottom: 48px;
     }
 
     .cover-score-left {
@@ -125,17 +125,9 @@
       line-height: 1;
     }
 
-    .big-score-num.green {
-      color: #34d399;
-    }
-
-    .big-score-num.yellow {
-      color: #fbbf24;
-    }
-
-    .big-score-num.red {
-      color: #f87171;
-    }
+    .big-score-num.green { color: #34d399; }
+    .big-score-num.yellow { color: #fbbf24; }
+    .big-score-num.red { color: #f87171; }
 
     .big-score-denom {
       font-size: 14px;
@@ -160,11 +152,36 @@
       font-weight: 800;
       color: #fff;
       line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    /* Stats inline en portada */
+    .cover-stats-row {
+      display: table;
+      margin-bottom: 0;
+    }
+
+    .cover-stat {
+      display: table-cell;
+      padding-right: 32px;
+      vertical-align: top;
+    }
+
+    .cover-stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #e0e7ff;
+    }
+
+    .cover-stat-lbl {
+      font-size: 11px;
+      color: #64748b;
     }
 
     .cover-footer-row {
       display: table;
       width: 100%;
+      margin-top: 56px;
     }
 
     .cover-footer-left {
@@ -178,28 +195,10 @@
       text-align: right;
     }
 
-    .cover-footer-left p {
-      font-size: 12px;
-      color: #475569;
-    }
-
-    .cover-footer-left strong {
-      color: #94a3b8;
-      display: block;
-      font-size: 13px;
-    }
-
-    .cover-footer-right p {
-      font-size: 12px;
-      color: #475569;
-    }
-
-    .cover-footer-right strong {
-      color: #a5b4fc;
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-    }
+    .cover-footer-left p { font-size: 12px; color: #475569; }
+    .cover-footer-left strong { color: #94a3b8; display: block; font-size: 13px; }
+    .cover-footer-right p { font-size: 12px; color: #475569; }
+    .cover-footer-right strong { color: #a5b4fc; display: block; font-size: 14px; font-weight: 700; }
 
     /* ───────────────── PÁGINAS INTERNAS ─────────────────────────── */
     .page {
@@ -235,10 +234,7 @@
       color: #1e293b;
     }
 
-    p {
-      color: #475569;
-      line-height: 1.65;
-    }
+    p { color: #475569; line-height: 1.65; }
 
     /* ───────────── CAJA RESUMEN ──────────────────────────────────── */
     .summary-box {
@@ -247,10 +243,47 @@
       border-left: 4px solid #6366f1;
       border-radius: 0 10px 10px 0;
       padding: 22px 26px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       font-size: 13.5px;
       line-height: 1.75;
       color: #334155;
+    }
+
+    /* ───────────── STATS TÉCNICAS ────────────────────────────────── */
+    .stats-row {
+      display: table;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 10px 0;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      display: table-cell;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+      vertical-align: top;
+      width: 33%;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .stat-val.warn { color: #d97706; }
+    .stat-val.bad  { color: #dc2626; }
+
+    .stat-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      color: #94a3b8;
     }
 
     /* ───────────── CONTADORES ────────────────────────────────────── */
@@ -258,7 +291,7 @@
       width: 100%;
       border-collapse: separate;
       border-spacing: 8px 0;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .count-box {
@@ -268,21 +301,10 @@
       vertical-align: top;
     }
 
-    .count-box.c-crit {
-      background: #fef2f2;
-    }
-
-    .count-box.c-high {
-      background: #fff7ed;
-    }
-
-    .count-box.c-med {
-      background: #fffbeb;
-    }
-
-    .count-box.c-low {
-      background: #eff6ff;
-    }
+    .count-box.c-crit { background: #fef2f2; }
+    .count-box.c-high { background: #fff7ed; }
+    .count-box.c-med  { background: #fffbeb; }
+    .count-box.c-low  { background: #eff6ff; }
 
     .count-n {
       font-size: 32px;
@@ -291,21 +313,10 @@
       margin-bottom: 4px;
     }
 
-    .count-box.c-crit .count-n {
-      color: #dc2626;
-    }
-
-    .count-box.c-high .count-n {
-      color: #ea580c;
-    }
-
-    .count-box.c-med .count-n {
-      color: #d97706;
-    }
-
-    .count-box.c-low .count-n {
-      color: #2563eb;
-    }
+    .count-box.c-crit .count-n { color: #dc2626; }
+    .count-box.c-high .count-n { color: #ea580c; }
+    .count-box.c-med  .count-n { color: #d97706; }
+    .count-box.c-low  .count-n { color: #2563eb; }
 
     .count-l {
       font-size: 11px;
@@ -319,7 +330,7 @@
       border: 1px solid #fecaca;
       border-radius: 10px;
       padding: 18px 22px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .urgent-title {
@@ -336,16 +347,14 @@
       color: #7f1d1d;
     }
 
-    .urgent-row:last-child {
-      border-bottom: none;
-    }
+    .urgent-row:last-child { border-bottom: none; }
 
     /* ───────────── GRID PUNTUACIONES ─────────────────────────────── */
     .scores-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 10px 0;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .score-box {
@@ -355,7 +364,6 @@
       padding: 18px 12px;
       text-align: center;
       vertical-align: top;
-      width: 25%;
     }
 
     .score-area {
@@ -372,34 +380,14 @@
       margin-bottom: 5px;
     }
 
-    .score-box.green .score-val {
-      color: #059669;
-    }
+    .score-box.green .score-val { color: #059669; }
+    .score-box.yellow .score-val { color: #d97706; }
+    .score-box.red .score-val { color: #dc2626; }
 
-    .score-box.yellow .score-val {
-      color: #d97706;
-    }
-
-    .score-box.red .score-val {
-      color: #dc2626;
-    }
-
-    .score-qual {
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .score-box.green .score-qual {
-      color: #059669;
-    }
-
-    .score-box.yellow .score-qual {
-      color: #d97706;
-    }
-
-    .score-box.red .score-qual {
-      color: #dc2626;
-    }
+    .score-qual { font-size: 11px; font-weight: 700; }
+    .score-box.green .score-qual { color: #059669; }
+    .score-box.yellow .score-qual { color: #d97706; }
+    .score-box.red .score-qual { color: #dc2626; }
 
     /* ───────────── NARRATIVA ─────────────────────────────────────── */
     .narrative-box {
@@ -407,7 +395,7 @@
       border: 1px solid #e2e8f0;
       border-radius: 10px;
       padding: 22px 26px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       font-size: 13.5px;
       line-height: 1.8;
       color: #334155;
@@ -424,21 +412,10 @@
       background: #fff;
     }
 
-    .finding.critical {
-      border-left: 5px solid #dc2626;
-    }
-
-    .finding.high {
-      border-left: 5px solid #ea580c;
-    }
-
-    .finding.medium {
-      border-left: 5px solid #d97706;
-    }
-
-    .finding.low {
-      border-left: 5px solid #2563eb;
-    }
+    .finding.critical { border-left: 5px solid #dc2626; }
+    .finding.high     { border-left: 5px solid #ea580c; }
+    .finding.medium   { border-left: 5px solid #d97706; }
+    .finding.low      { border-left: 5px solid #2563eb; }
 
     .finding-head {
       padding: 14px 20px;
@@ -456,9 +433,7 @@
       padding-right: 14px;
     }
 
-    .fh-title-cell {
-      vertical-align: middle;
-    }
+    .fh-title-cell { vertical-align: middle; }
 
     .badge {
       display: inline-block;
@@ -468,25 +443,10 @@
       font-weight: 800;
     }
 
-    .badge.critical {
-      background: #fef2f2;
-      color: #dc2626;
-    }
-
-    .badge.high {
-      background: #fff7ed;
-      color: #ea580c;
-    }
-
-    .badge.medium {
-      background: #fffbeb;
-      color: #d97706;
-    }
-
-    .badge.low {
-      background: #eff6ff;
-      color: #2563eb;
-    }
+    .badge.critical { background: #fef2f2; color: #dc2626; }
+    .badge.high     { background: #fff7ed; color: #ea580c; }
+    .badge.medium   { background: #fffbeb; color: #d97706; }
+    .badge.low      { background: #eff6ff; color: #2563eb; }
 
     .f-title {
       font-size: 14px;
@@ -504,17 +464,114 @@
       padding: 14px 20px;
     }
 
+    /* Evidence chips */
+    .evidence-row {
+      margin-bottom: 10px;
+    }
+
+    .evidence-chip {
+      display: inline-block;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .evidence-chip strong {
+      color: #0f172a;
+    }
+
     .impact-tag {
       font-size: 9px;
       font-weight: 800;
       color: #7c3aed;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
+      margin-top: 8px;
     }
 
     .impact-text {
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 12.5px;
+      line-height: 1.65;
       color: #475569;
+      margin-bottom: 10px;
+    }
+
+    .fix-tag {
+      font-size: 9px;
+      font-weight: 800;
+      color: #059669;
+      margin-bottom: 4px;
+    }
+
+    .fix-text {
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: #334155;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    /* ───────────── PLAN DE ACCIÓN ────────────────────────────────── */
+    .action-step {
+      display: table;
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .action-num-cell {
+      display: table-cell;
+      width: 36px;
+      vertical-align: top;
+      padding-right: 14px;
+    }
+
+    .action-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      padding-top: 6px;
+    }
+
+    .action-num.critical { background: #dc2626; }
+    .action-num.high     { background: #ea580c; }
+    .action-num.medium   { background: #d97706; }
+    .action-num.low      { background: #2563eb; }
+
+    .action-body-cell {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .action-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .action-desc {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    .action-divider {
+      border: none;
+      border-top: 1px solid #f1f5f9;
+      margin: 0 0 14px 50px;
     }
 
     /* ───────────── PIE DE PÁGINA ─────────────────────────────────── */
@@ -542,9 +599,7 @@
       text-align: right;
     }
 
-    .pf-left strong {
-      color: #6366f1;
-    }
+    .pf-left strong { color: #6366f1; }
 
     /* ───────────── PÁGINA CTA ────────────────────────────────────── */
     .cta-page {
@@ -591,9 +646,7 @@
       margin-bottom: 18px;
     }
 
-    .cta-h1 span {
-      color: #a5b4fc;
-    }
+    .cta-h1 span { color: #a5b4fc; }
 
     .cta-body {
       font-size: 15px;
@@ -602,18 +655,14 @@
       margin-bottom: 36px;
     }
 
-    .cta-items {
-      margin-bottom: 36px;
-    }
+    .cta-items { margin-bottom: 36px; }
 
     .cta-item {
       padding: 10px 0;
       border-bottom: 1px solid rgba(255, 255, 255, .07);
     }
 
-    .cta-item:last-child {
-      border-bottom: none;
-    }
+    .cta-item:last-child { border-bottom: none; }
 
     .cti-table {
       width: 100%;
@@ -635,9 +684,7 @@
       line-height: 1.6;
     }
 
-    .cta-contact {
-      margin-bottom: 36px;
-    }
+    .cta-contact { margin-bottom: 36px; }
 
     .cta-contact-line {
       font-size: 13px;
@@ -645,9 +692,7 @@
       margin-bottom: 8px;
     }
 
-    .cta-contact-line strong {
-      color: #e0e7ff;
-    }
+    .cta-contact-line strong { color: #e0e7ff; }
 
     .cta-hr {
       border: none;
@@ -678,9 +723,7 @@
       color: #fff;
     }
 
-    .author-info-cell {
-      vertical-align: middle;
-    }
+    .author-info-cell { vertical-align: middle; }
 
     .author-name {
       font-size: 16px;
@@ -719,9 +762,24 @@
         <div class="cover-score-right">
           <div class="cover-score-label">Puntuaci&oacute;n global</div>
           <div class="cover-score-desc">
-            {{#if (gt globalScore 79)}}Tu web est&aacute; en buena forma{{else}}{{#if (gt globalScore 59)}}Hay margen de
-            mejora importante{{else}}Problemas que cuestan clientes{{/if}}{{/if}}
+            {{#if (gt globalScore 79)}}Tu web est&aacute; en buena forma{{else}}{{#if (gt globalScore 59)}}Hay margen de mejora importante{{else}}Problemas que cuestan clientes{{/if}}{{/if}}
           </div>
+          {{#if pageStats}}
+          <div class="cover-stats-row">
+            <div class="cover-stat">
+              <div class="cover-stat-val">{{fmtMs pageStats.responseTimeMs}}</div>
+              <div class="cover-stat-lbl">Tiempo de respuesta</div>
+            </div>
+            <div class="cover-stat">
+              <div class="cover-stat-val">{{pageStats.htmlSizeKb}} KB</div>
+              <div class="cover-stat-lbl">Peso de la p&aacute;gina</div>
+            </div>
+            <div class="cover-stat">
+              <div class="cover-stat-val">{{totalFindings}}</div>
+              <div class="cover-stat-lbl">Problemas detectados</div>
+            </div>
+          </div>
+          {{/if}}
         </div>
       </div>
 
@@ -744,14 +802,30 @@
 
     <div class="summary-box">
       Este informe recoge el an&aacute;lisis completo de <b>{{url}}</b> realizado el {{date}}.
-      Se han evaluado cuatro &aacute;reas cr&iacute;ticas: <b>velocidad de carga, posicionamiento en Google,
-        seguridad</b> y <b>accesibilidad</b>.
+      Se han evaluado cinco &aacute;reas: <b>rendimiento, posicionamiento (SEO), seguridad, experiencia m&oacute;vil</b>
+      y <b>captaci&oacute;n de clientes</b>.
       La puntuaci&oacute;n global es <b>{{globalScore}}/100</b> &mdash;
-      {{#if (gt globalScore 79)}}tu web est&aacute; en buena forma aunque siempre hay margen de mejora.{{else}}{{#if (gt
-      globalScore 59)}}hay problemas que pueden estar fren&aacute;ndote en Google y reduciendo tus
-      conversiones.{{else}}existen problemas serios que probablemente te est&aacute;n costando clientes ahora
-      mismo.{{/if}}{{/if}}
+      {{#if (gt globalScore 79)}}tu web est&aacute; en buena forma aunque siempre hay margen de mejora.{{else}}{{#if (gt globalScore 59)}}hay problemas que pueden estar fren&aacute;ndote en Google y reduciendo tus conversiones.{{else}}existen problemas serios que probablemente te est&aacute;n costando clientes ahora mismo.{{/if}}{{/if}}
     </div>
+
+    {{#if pageStats}}
+    <table class="stats-row">
+      <tr>
+        <td class="stat-box">
+          <div class="stat-val {{#if (gt pageStats.responseTimeMs 1500)}}bad{{else}}{{#if (gt pageStats.responseTimeMs 800)}}warn{{/if}}{{/if}}">{{fmtMs pageStats.responseTimeMs}}</div>
+          <div class="stat-lbl">Tiempo de respuesta del servidor</div>
+        </td>
+        <td class="stat-box">
+          <div class="stat-val {{#if (gt pageStats.htmlSizeKb 500)}}bad{{else}}{{#if (gt pageStats.htmlSizeKb 200)}}warn{{/if}}{{/if}}">{{pageStats.htmlSizeKb}} KB</div>
+          <div class="stat-lbl">Peso del HTML de la p&aacute;gina</div>
+        </td>
+        <td class="stat-box">
+          <div class="stat-val">{{totalFindings}}</div>
+          <div class="stat-lbl">Total de problemas detectados</div>
+        </td>
+      </tr>
+    </table>
+    {{/if}}
 
     <table class="counts-table">
       <tr>
@@ -776,7 +850,7 @@
 
     {{#if urgentFindings.length}}
     <div class="urgent-box">
-      <div class="urgent-title">Problemas que requieren atenci&oacute;n inmediata</div>
+      <div class="urgent-title">&#9888; Problemas que requieren atenci&oacute;n inmediata</div>
       {{#each urgentFindings}}
       <div class="urgent-row">&#9658; {{#if this.title}}{{this.title}}{{else}}{{this.code}}{{/if}}</div>
       {{/each}}
@@ -812,14 +886,14 @@
     </div>
   </div>
 
-  <!-- ═══════════════════ HALLAZGOS ════════════════════════════════ -->
+  <!-- ═══════════════════ HALLAZGOS DETALLADOS ═════════════════════ -->
   {{#if findings.length}}
   <div class="page page-break">
     <div class="section-tag">02 &mdash; Hallazgos Detallados</div>
     <h2>{{totalFindings}} problemas detectados</h2>
 
     <p style="margin-bottom:22px; font-size:13px;">
-      Ordenados de mayor a menor urgencia. Para cada problema se explica el impacto real en tu negocio.
+      Ordenados de mayor a menor urgencia. Para cada problema se muestra el impacto real en tu negocio, los datos concretos detectados y c&oacute;mo solucionarlo.
     </p>
 
     {{#each findings}}
@@ -837,12 +911,43 @@
           </tr>
         </table>
       </div>
-      {{#if this.businessImpact}}
       <div class="finding-body">
-        <div class="impact-tag">POR QUE IMPORTA</div>
+
+        {{#if this.evidence}}
+        {{#with this.evidence}}
+        <div class="evidence-row">
+          {{#if longitud}}<span class="evidence-chip">Longitud: <strong>{{longitud}} chars</strong></span>{{/if}}
+          {{#if titulo}}<span class="evidence-chip">T&iacute;tulo: <strong>{{titulo}}</strong></span>{{/if}}
+          {{#if descripcion}}<span class="evidence-chip">Descripci&oacute;n: <strong>{{descripcion}}</strong></span>{{/if}}
+          {{#if sin_alt}}<span class="evidence-chip">Im&aacute;genes sin alt: <strong>{{sin_alt}}</strong></span>{{/if}}
+          {{#if total_imagenes}}<span class="evidence-chip">Total im&aacute;genes: <strong>{{total_imagenes}}</strong></span>{{/if}}
+          {{#if h1s}}<span class="evidence-chip">H1 detectados: <strong>{{h1s}}</strong></span>{{/if}}
+          {{#if telefono_detectado}}<span class="evidence-chip">Tel&eacute;fono: <strong>{{telefono_detectado}}</strong></span>{{/if}}
+          {{#if tamanhos_pequenos}}<span class="evidence-chip">Tama&ntilde;os peq.: <strong>{{tamanhos_pequenos}}</strong></span>{{/if}}
+          {{#if tiempo_ms}}<span class="evidence-chip">Tiempo: <strong>{{tiempo_ms}} ms</strong></span>{{/if}}
+          {{#if umbral_ms}}<span class="evidence-chip">L&iacute;mite: <strong>{{umbral_ms}} ms</strong></span>{{/if}}
+          {{#if tamanho_kb}}<span class="evidence-chip">Tama&ntilde;o: <strong>{{tamanho_kb}} KB</strong></span>{{/if}}
+          {{#if scripts_externos}}<span class="evidence-chip">Scripts ext.: <strong>{{scripts_externos}}</strong></span>{{/if}}
+          {{#if scripts_inline}}<span class="evidence-chip">Scripts inline: <strong>{{scripts_inline}}</strong></span>{{/if}}
+          {{#if ejemplos}}<span class="evidence-chip">Recursos: <strong>{{ejemplos}}</strong></span>{{/if}}
+          {{#if server}}<span class="evidence-chip">Servidor: <strong>{{server}}</strong></span>{{/if}}
+          {{#if url}}<span class="evidence-chip">URL: <strong>{{url}}</strong></span>{{/if}}
+          {{#if header}}<span class="evidence-chip">Header: <strong>{{header}}</strong></span>{{/if}}
+        </div>
+        {{/with}}
+        {{/if}}
+
+        {{#if this.businessImpact}}
+        <div class="impact-tag">&#9660; POR QU&Eacute; IMPORTA</div>
         <div class="impact-text">{{this.businessImpact}}</div>
+        {{/if}}
+
+        {{#if this.fixSuggestion}}
+        <div class="fix-tag">&#10003; C&Oacute;MO SOLUCIONARLO</div>
+        <div class="fix-text">{{this.fixSuggestion}}</div>
+        {{/if}}
+
       </div>
-      {{/if}}
     </div>
     {{/each}}
 
@@ -857,12 +962,72 @@
   </div>
   {{/if}}
 
+  <!-- ═══════════════════ PLAN DE ACCIÓN ══════════════════════════ -->
+  {{#if urgentFindings.length}}
+  <div class="page page-break">
+    <div class="section-tag">03 &mdash; Plan de Acci&oacute;n</div>
+    <h2>Por d&oacute;nde empezar</h2>
+
+    <div class="summary-box" style="margin-bottom:28px;">
+      Hemos ordenado los problemas por prioridad de impacto en tu negocio. Empieza por los cr&iacute;ticos y altos: son los que m&aacute;s clientes y visibilidad te est&aacute;n costando ahora mismo.
+    </div>
+
+    {{#each urgentFindings}}
+    <div class="action-step">
+      <div class="action-num-cell">
+        <div class="action-num {{this.severity}}">{{add @index 1}}</div>
+      </div>
+      <div class="action-body-cell">
+        <div class="action-title">{{#if this.title}}{{this.title}}{{else}}{{this.code}}{{/if}}
+          <span style="font-size:10px;font-weight:600;color:#94a3b8;margin-left:8px;">{{severityLabel this.severity}}</span>
+        </div>
+        {{#if this.fixSuggestion}}
+        <div class="action-desc">{{this.fixSuggestion}}</div>
+        {{else}}
+        {{#if this.businessImpact}}
+        <div class="action-desc">{{this.businessImpact}}</div>
+        {{/if}}
+        {{/if}}
+      </div>
+    </div>
+    {{#unless @last}}<hr class="action-divider">{{/unless}}
+    {{/each}}
+
+    {{#if mediumFindings.length}}
+    <h3 style="margin-top:28px;margin-bottom:16px;color:#64748b;">Mejoras adicionales recomendadas</h3>
+    {{#each mediumFindings}}
+    <div class="action-step">
+      <div class="action-num-cell">
+        <div class="action-num medium">&#183;</div>
+      </div>
+      <div class="action-body-cell">
+        <div class="action-title" style="color:#475569;">{{#if this.title}}{{this.title}}{{else}}{{this.code}}{{/if}}</div>
+        {{#if this.fixSuggestion}}
+        <div class="action-desc">{{this.fixSuggestion}}</div>
+        {{/if}}
+      </div>
+    </div>
+    {{#unless @last}}<hr class="action-divider">{{/unless}}
+    {{/each}}
+    {{/if}}
+
+    <div class="page-footer">
+      <table class="pf-table">
+        <tr>
+          <td class="pf-left"><strong>AuditaWeb</strong> &middot; Plan de acci&oacute;n</td>
+          <td class="pf-right">{{url}} &middot; {{date}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  {{/if}}
+
   <!-- ═══════════════════ CTA ══════════════════════════════════════ -->
   <div class="cta-page">
     <div class="cta-glow"></div>
     <div class="cta-inner">
 
-      <div class="cta-tag">03 &mdash; Siguiente Paso</div>
+      <div class="cta-tag">{{#if urgentFindings.length}}04{{else}}03{{/if}} &mdash; Siguiente Paso</div>
       <div class="cta-h1">&iquest;Quieres que resuelva<br><span>todo esto por ti?</span></div>
       <div class="cta-body">
         Ya sabes qu&eacute; falla y por qu&eacute; te est&aacute; costando dinero.
