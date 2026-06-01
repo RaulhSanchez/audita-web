@@ -92,7 +92,7 @@ export class PdfService {
       });
 
       let browser: import('puppeteer-core').Browser;
-      if (process.env.NODE_ENV === 'production') {
+      if (process.env.PUPPETEER_SKIP_DOWNLOAD === 'true') {
         const chromium = (await import('@sparticuz/chromium-min')).default;
         const puppeteerCore = (await import('puppeteer-core')).default;
         const chromiumUrl = 'https://github.com/Sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar';
