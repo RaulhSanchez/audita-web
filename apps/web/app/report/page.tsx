@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 const SCORE_LABEL: Record<string, string> = {
@@ -20,6 +20,14 @@ function ReportContent() {
   const [audit, setAudit] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = useCallback(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }, []);
 
   useEffect(() => {
     if (!slug) { setNotFound(true); setLoading(false); return; }
@@ -56,8 +64,24 @@ function ReportContent() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50 py-20 px-6">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
+        <div className="mb-8 flex items-center justify-between">
           <a href="/" className="text-indigo-400 hover:text-indigo-300 text-sm font-medium">← Volver a AuditaWeb</a>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 rounded-lg bg-white/10 border border-white/15 px-4 py-2 text-sm text-white font-medium hover:bg-white/15 transition-all"
+          >
+            {copied ? (
+              <>
+                <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                <span className="text-emerald-400">¡Copiado!</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                Compartir informe
+              </>
+            )}
+          </button>
         </div>
 
         <header className="mb-12 border-b border-white/10 pb-8">
