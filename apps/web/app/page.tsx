@@ -42,6 +42,18 @@ export default function Home() {
             <AuditForm />
           </div>
 
+          {/* Sample report link */}
+          <p className="mt-5 text-sm text-slate-500">
+            ¿Quieres ver el informe antes de probar?{' '}
+            <a
+              href="/informe-ejemplo.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2 transition-colors"
+            >
+              Ver informe de ejemplo →
+            </a>
+          </p>
         </div>
       </section>
 
