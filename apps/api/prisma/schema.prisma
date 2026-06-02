@@ -24,6 +24,7 @@ model Audit {
   publicSlug    String?   @unique
   createdAt     DateTime  @default(now())
   completedAt   DateTime?
+  followUpSentAt DateTime?
   leadId        String?
   lead          Lead?     @relation(fields: [leadId], references: [id])
   source        String?

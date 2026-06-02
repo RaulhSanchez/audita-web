@@ -338,4 +338,95 @@ export class AuditService {
       return null;
     }
   }
+
+  /**
+   * Envía emails de seguimiento a leads que recibieron su informe hace ~48h
+   * y no han tenido seguimiento aún. Llamado por el cron diario.
+   */
+  async sendFollowUpEmails(): Promise<{ sent: number; skipped: number }> {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (!resendApiKey) {
+      this.logger.warn('sendFollowUpEmails: RESEND_API_KEY no configurado, saltando.');
+      return { sent: 0, skipped: 0 };
+    }
+
+    const now = new Date();
+    const from48h = new Date(now.getTime() - 48 * 60 * 60 * 1000);
+    const from72h = new Date(now.getTime() - 72 * 60 * 60 * 1000);
+
+    // Auditorías completadas entre hace 72h y 48h, con email, sin follow-up enviado
+    const candidates = await this.prisma.audit.findMany({
+      where: {
+        status: 'done',
+        email: { not: null },
+        followUpSentAt: null,
+        completedAt: { gte: from72h, lte: from48h },
+      },
+      take: 50,
+    });
+
+    this.logger.log(`sendFollowUpEmails: ${candidates.length} candidatos encontrados`);
+
+    let sent = 0;
+    let skipped = 0;
+
+    for (const audit of candidates) {
+      if (!audit.email) { skipped++; continue; }
+      try {
+        const hostname = new URL(audit.url).hostname;
+        const reportUrl = `${process.env.FRONTEND_BASE_URL || 'https://audita.zero2dev.es'}/report/?id=${audit.publicSlug ?? audit.id}`;
+        const fromAddress = process.env.RESEND_FROM ?? 'AuditaWeb <onboarding@resend.dev>';
+
+        const rawFindings = audit.findings ? JSON.parse(audit.findings) : [];
+        const topFinding = rawFindings
+          .sort((a: any, b: any) => {
+            const o: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3 };
+            return (o[a.severity] ?? 9) - (o[b.severity] ?? 9);
+          })[0];
+
+        await this.mailService.send(
+          {
+            from: fromAddress,
+            to: audit.email,
+            subject: `¿Pudiste revisar el informe de ${hostname}?`,
+            html: `
+              <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#1e293b">
+                <h2 style="color:#4f46e5">Un recordatorio rápido</h2>
+                <p>Hola,</p>
+                <p>El otro día analicé <strong>${audit.url}</strong> y obtuve una puntuación de <strong>${audit.globalScore ?? '--'}/100</strong>.</p>
+                ${topFinding ? `<p>El problema más urgente que encontré: <strong>${topFinding.title ?? topFinding.code}</strong>.</p>` : ''}
+                <p>Si no tuviste tiempo de revisarlo, aquí tienes el enlace directo al informe:</p>
+                <p style="text-align:center;margin:24px 0">
+                  <a href="${reportUrl}" style="background:#4f46e5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">
+                    Ver mi informe →
+                  </a>
+                </p>
+                <p>Si quieres que repasemos juntos los puntos críticos en 15 minutos, puedes reservar aquí:</p>
+                <p><a href="https://zero2dev.es/llamada" style="color:#4f46e5">zero2dev.es/llamada</a> — gratis, sin compromiso.</p>
+                <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
+                <p style="font-size:12px;color:#64748b">
+                  Raúl Huete · zero2dev.es<br>
+                  Si no quieres recibir más mensajes, responde "baja" a este email.
+                </p>
+              </div>
+            `,
+          },
+          resendApiKey,
+        );
+
+        await this.prisma.audit.update({
+          where: { id: audit.id },
+          data: { followUpSentAt: now },
+        });
+
+        sent++;
+        this.logger.log(`Follow-up enviado a ${audit.email} (audit ${audit.id})`);
+      } catch (e) {
+        this.logger.error(`Error enviando follow-up a ${audit.email}`, e);
+        skipped++;
+      }
+    }
+
+    return { sent, skipped };
+  }
 }

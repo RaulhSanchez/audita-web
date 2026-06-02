@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Headers, InternalServerErrorException, Logger, Param, Post, Res, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { AuditService } from './audit.service';
 import type { Response } from 'express';
 import * as fs from 'fs';
@@ -66,5 +67,13 @@ export class AuditController {
     const audit = await this.auditService.getAudit(id);
     if (!audit) throw new NotFoundException('Audit not found');
     return audit;
+  }
+
+  /** Cron diario a las 10:00 — envía follow-ups a leads de hace ~48h */
+  @Cron('0 10 * * *')
+  async dailyFollowUp() {
+    this.logger.log('Cron dailyFollowUp: iniciando...');
+    const result = await this.auditService.sendFollowUpEmails();
+    this.logger.log(`Cron dailyFollowUp: enviados=${result.sent} saltados=${result.skipped}`);
   }
 }

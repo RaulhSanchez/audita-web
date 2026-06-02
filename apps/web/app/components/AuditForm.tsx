@@ -213,6 +213,31 @@ export function AuditForm() {
       {result?.status === 'done' && (
         <div className="mt-8 text-left space-y-6">
 
+          {/* Share bar */}
+          {result.publicSlug && (
+            <div className="flex items-center justify-between gap-3 rounded-xl bg-white/5 border border-white/10 px-4 py-3">
+              <span className="text-xs text-slate-400 truncate hidden sm:block">
+                {typeof window !== 'undefined' ? `${window.location.origin}/report?id=${result.publicSlug}` : ''}
+              </span>
+              <div className="flex gap-2 ml-auto">
+                <a
+                  href={`/report?id=${result.publicSlug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors whitespace-nowrap"
+                >
+                  Ver informe completo →
+                </a>
+                <button
+                  onClick={() => navigator.clipboard.writeText(`${window.location.origin}/report?id=${result.publicSlug}`)}
+                  className="text-xs font-medium text-slate-400 hover:text-white transition-colors whitespace-nowrap"
+                >
+                  Copiar enlace
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Score global + desglose */}
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
