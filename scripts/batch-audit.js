@@ -6,25 +6,23 @@
  * interno de la API y rellena Score, Hallazgo_1-3 y PDF_URL.
  *
  * Uso:
- *   node scripts/batch-audit.js
+ *   node scripts/batch-audit.js [concurrencia]
  *
- * Requisitos:
- *   - API corriendo en localhost:3001 (pnpm --filter api dev)
- *   - INTERNAL_API_KEY en apps/api/.env
- *   - leads.csv con columna "Web" rellena
+ *   node scripts/batch-audit.js        # 5 en paralelo (default)
+ *   node scripts/batch-audit.js 10     # 10 en paralelo
+ *   node scripts/batch-audit.js 50     # todas a la vez
  *
  * Opciones de entorno:
  *   API_BASE   URL base de la API  (default: http://localhost:3001)
  *   API_KEY    clave interna       (default: auditaweb-local-2026)
- *   CONCURRENCY auditorías en paralelo (default: 2)
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const API_BASE    = process.env.API_BASE  || 'http://localhost:3001';
-const API_KEY     = process.env.API_KEY   || 'auditaweb-local-2026';
-const CONCURRENCY = parseInt(process.env.CONCURRENCY || '2', 10);
+const API_BASE    = process.env.API_BASE || 'http://localhost:3001';
+const API_KEY     = process.env.API_KEY  || 'auditaweb-local-2026';
+const CONCURRENCY = parseInt(process.argv[2] || process.env.CONCURRENCY || '5', 10);
 const CSV_PATH    = path.join(__dirname, 'leads.csv');
 const POLL_MS     = 3000;
 const TIMEOUT_MS  = 5 * 60 * 1000;
@@ -177,27 +175,32 @@ async function main() {
     return web && web.startsWith('http') && (!r['Score'] || r['Score'] === '-' || r['Score'] === '');
   });
 
-  console.log(`\n🔍 ${pending.length} URLs pendientes de auditar (total filas: ${rows.length})\n`);
+  console.log(`\n🔍 ${pending.length} URLs pendientes de auditar (total filas: ${rows.length})`);
+  console.log(`⚡ Concurrencia: ${CONCURRENCY} auditorías en paralelo\n`);
 
   if (pending.length === 0) {
     console.log('Nada que auditar. Rellena la columna "Web" en leads.csv y vuelve a ejecutar.\n');
     process.exit(0);
   }
 
-  // Process in batches of CONCURRENCY
+  // Worker pool: mantiene exactamente CONCURRENCY slots activos en todo momento
   let done = 0;
-  for (let i = 0; i < rows.length; i += CONCURRENCY) {
-    const batch = rows.slice(i, i + CONCURRENCY);
-    await Promise.all(
-      batch.map((row, j) => {
-        const idx = i + j + 1;
-        return auditRow(row, idx, rows.length);
-      })
-    );
-    // Write after each batch so progress is saved even if interrupted
-    fs.writeFileSync(CSV_PATH, toCsv(rows), 'utf8');
-    done += batch.filter(r => r['Score'] && r['Score'] !== '-').length;
+  let cursor = 0;
+  const allRows = rows;
+
+  async function worker() {
+    while (cursor < allRows.length) {
+      const i = cursor++;
+      const row = allRows[i];
+      await auditRow(row, i + 1, allRows.length);
+      // Guardar progreso tras cada auditoría individual
+      fs.writeFileSync(CSV_PATH, toCsv(allRows), 'utf8');
+      if (allRows[i]['Score'] && allRows[i]['Score'] !== '-') done++;
+    }
   }
+
+  // Lanza CONCURRENCY workers que compiten por las filas
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, rows.length) }, worker));
 
   console.log(`\n✅ Hecho. ${done} auditorías completadas.`);
   console.log(`📄 Resultados guardados en: scripts/leads.csv\n`);
