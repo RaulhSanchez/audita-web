@@ -98,30 +98,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════ SECTORES ══════════════ */}
-      <section className="relative z-10 mx-auto max-w-5xl px-6 pb-16 lg:px-8">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
-          <p className="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6">
-            Especialmente útil para
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              'Clínicas dentales', 'Fisioterapeutas', 'Gestorías',
-              'Asesorías', 'Restaurantes', 'Talleres mecánicos',
-              'Comercio local', 'Despachos de abogados', 'Estética y salud',
-            ].map((sector) => (
-              <span
-                key={sector}
-                className="rounded-full px-4 py-1.5 text-sm text-slate-300 ring-1 ring-white/10 bg-white/5"
-              >
-                {sector}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════ PRUEBA SOCIAL ══════════════ */}
+{/* ══════════════ PRUEBA SOCIAL ══════════════ */}
       <section className="relative z-10 mx-auto max-w-5xl px-6 pb-16 lg:px-8">
         <div className="text-center">
           <p className="text-4xl font-extrabold text-white">+50</p>
