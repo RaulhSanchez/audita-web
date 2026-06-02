@@ -45,6 +45,11 @@ export class AuditService {
 
     this.telegramService.sendMessage(`🚀 <b>Nuevo lead</b>\nURL: ${url}\nEmail: ${email || 'No proporcionado'}`);
 
+    // Register lead in Formspree (fire-and-forget)
+    this.registerFormspree(url, email).catch((e) =>
+      this.logger.warn(`Formspree registration failed: ${e?.message ?? e}`),
+    );
+
     // Add to local queue
     this.queueService.add(() => this.processAudit(audit.id, url, email));
 
@@ -123,6 +128,27 @@ export class AuditService {
         data: { status: 'failed' },
       }).catch(() => {}); // ignore secondary DB error
     }
+  }
+
+  private async registerFormspree(url: string, email?: string) {
+    const formId = process.env.FORMSPREE_FORM_ID ?? 'xykojvky';
+    const body: Record<string, string> = {
+      fuente: 'AuditaWeb',
+      url_auditada: url,
+      email: email ?? '(no proporcionado)',
+      fecha: new Date().toISOString(),
+    };
+    const res = await fetch(`https://formspree.io/f/${formId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status}: ${text}`);
+    }
+    this.logger.log(`Formspree lead registered — email=${email ?? 'none'} url=${url}`);
   }
 
   private async sendReportEmail(email: string, url: string, auditId: string, pdfBuffer: Buffer | null, globalScore: number) {
