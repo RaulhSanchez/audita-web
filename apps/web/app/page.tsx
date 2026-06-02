@@ -98,7 +98,7 @@ export default function Home() {
         </div>
       </section>
 
-{/* ══════════════ PRUEBA SOCIAL ══════════════ */}
+      {/* ══════════════ PRUEBA SOCIAL ══════════════ */}
       <section className="relative z-10 mx-auto max-w-5xl px-6 pb-16 lg:px-8">
         <div className="text-center">
           <p className="text-4xl font-extrabold text-white">+50</p>
@@ -139,7 +139,7 @@ export default function Home() {
             <h3 className="text-lg font-bold text-white">Raúl Huete</h3>
             <p className="text-sm text-slate-400 mt-0.5">Arquitecto de Software freelance · Madrid sur · zero2dev.es</p>
             <p className="mt-3 text-sm text-slate-400 leading-relaxed">
-              Llevo más de 10 años construyendo y optimizando aplicaciones web. Creé AuditaWeb para darle a cada PYME el mismo diagnóstico que normalmente solo pueden permitirse las empresas grandes.
+              Llevo años construyendo y optimizando aplicaciones web. Creé AuditaWeb para darle a cada PYME el mismo diagnóstico que normalmente solo pueden permitirse las empresas grandes.
             </p>
           </div>
         </div>
