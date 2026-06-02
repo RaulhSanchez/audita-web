@@ -5,10 +5,7 @@ export const metadata = {
   description: 'Análisis profesional de rendimiento, SEO, seguridad y RGPD en 90 segundos. Descubre por qué tu web está perdiendo clientes. Gratis, sin registro.',
 };
 
-const SAMPLE_REPORT_ID = '0f4f719e-48f7-4e82-8849-97e6f2f2cacc';
-
 export default function Home() {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'https://audita-web-api.onrender.com';
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50 selection:bg-indigo-500/30">
@@ -45,18 +42,6 @@ export default function Home() {
             <AuditForm />
           </div>
 
-          {/* Sample report link */}
-          <p className="mt-5 text-sm text-slate-500">
-            ¿Quieres ver el informe antes de probar?{' '}
-            <a
-              href={`${apiBase}/api/audits/${SAMPLE_REPORT_ID}/pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2 transition-colors"
-            >
-              Ver informe de ejemplo →
-            </a>
-          </p>
         </div>
       </section>
 
