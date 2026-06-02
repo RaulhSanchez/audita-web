@@ -173,8 +173,7 @@ export class AuditService {
             <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
               <h2 style="color:#4f46e5">Tu informe está listo</h2>
               <p>Hemos analizado <strong>${url}</strong> y tu puntuación global es <strong style="font-size:1.4em">${globalScore}/100</strong>.</p>
-              <p>Haz clic en el botón para ver todos los hallazgos y el plan de acción.</p>
-              <a href="${reportUrl}" style="display:inline-block;margin:16px 0;background:#4f46e5;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold">Ver resultado online</a>
+              <p>Adjuntamos el informe completo en PDF con todos los hallazgos y el plan de acción.</p>
               <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0">
               <p style="font-size:12px;color:#64748b">Raúl Huete · zero2dev.es</p>
             </div>
