@@ -1,0 +1,70 @@
+import { Body, Controller, Get, Headers, InternalServerErrorException, Logger, Param, Post, Res, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { AuditService } from './audit.service';
+import type { Response } from 'express';
+import * as fs from 'fs';
+
+@Controller('api/audits')
+export class AuditController {
+  private readonly logger = new Logger(AuditController.name);
+
+  constructor(private readonly auditService: AuditService) {}
+
+  @Post()
+  async create(@Body() body: any) {
+    try {
+      return await this.auditService.createAudit(body.url, body.email, body.phone, body.sector);
+    } catch (e) {
+      this.logger.error('createAudit failed', e);
+      throw new InternalServerErrorException((e as Error).message ?? 'Unexpected error');
+    }
+  }
+
+  /**
+   * Endpoint interno para auditoría en lote (outreach).
+   * No envía email, no registra en Formspree, no notifica en Telegram.
+   * Requiere header x-api-key con el valor de INTERNAL_API_KEY env var.
+   */
+  @Post('internal')
+  async createInternal(
+    @Headers('x-api-key') apiKey: string,
+    @Body() body: { url: string },
+  ) {
+    const expected = process.env.INTERNAL_API_KEY;
+    if (!expected || apiKey !== expected) {
+      throw new UnauthorizedException('Invalid or missing x-api-key');
+    }
+    if (!body?.url) {
+      throw new InternalServerErrorException('url is required');
+    }
+    try {
+      return await this.auditService.createInternalAudit(body.url);
+    } catch (e) {
+      this.logger.error('createInternalAudit failed', e);
+      throw new InternalServerErrorException((e as Error).message ?? 'Unexpected error');
+    }
+  }
+
+  // Specific routes must come before the generic :id route
+  @Get('public/:slug')
+  async findBySlug(@Param('slug') slug: string) {
+    const audit = await this.auditService.getAuditBySlug(slug);
+    if (!audit) throw new NotFoundException('Audit not found');
+    return audit;
+  }
+
+  @Get(':id/pdf')
+  async downloadPdf(@Param('id') id: string, @Res() res: Response) {
+    const pdfPath = await this.auditService.getPdfPath(id);
+    if (!pdfPath) throw new NotFoundException('PDF not generated yet');
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="informe-${id}.pdf"`);
+    fs.createReadStream(pdfPath).pipe(res);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const audit = await this.auditService.getAudit(id);
+    if (!audit) throw new NotFoundException('Audit not found');
+    return audit;
+  }
+}

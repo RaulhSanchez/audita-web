@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: audita-web-api
+    env: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install -g pnpm@9 && NODE_ENV=development pnpm install --no-frozen-lockfile && pnpm --filter api build
+    startCommand: cd apps/api && node --max-old-space-size=450 dist/src/main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false          # se pone a mano en Render dashboard
+      - key: RESEND_API_KEY
+        sync: false          # API key de resend.com — reemplaza SMTP
+      - key: RESEND_FROM
+        sync: false          # ej: "AuditaWeb <noreply@zero2dev.es>" (dominio verificado) o dejar vacío para usar onboarding@resend.dev
+      - key: TELEGRAM_BOT_TOKEN
+        value: ""
+      - key: TELEGRAM_CHAT_ID
+        value: ""
+      - key: FRONTEND_BASE_URL
+        sync: false          # URL del frontend en GitHub Pages
+      - key: REPORTS_DIR
+        value: /tmp/reports  # disco efímero — el PDF se envía por email antes de reiniciar
+      - key: OLLAMA_BASE_URL
+        value: ""            # no disponible en la nube — narrativa usa fallback automático
+      - key: OLLAMA_MODEL
+        value: llama3.2
+      - key: PUPPETEER_SKIP_DOWNLOAD
+        value: "true"
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/.cache/puppeteer
