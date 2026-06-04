@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f8fafc;
+  --background: #fafaf8;
+  --foreground: #111827;
 }
 
 @theme inline {
@@ -25,14 +25,14 @@ body {
 }
 
 ::selection {
-  background-color: rgba(99, 102, 241, 0.25);
-  color: #fff;
+  background-color: rgba(99, 102, 241, 0.15);
+  color: #111827;
 }
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
 
 /* ── Scroll reveal ─────────────────────────────────────── */
 .reveal {
