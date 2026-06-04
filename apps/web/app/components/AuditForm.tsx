@@ -180,7 +180,7 @@ export function AuditForm() {
           placeholder="https://tuweb.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="w-full rounded-xl bg-white/5 border border-white/10 px-5 py-4 text-white placeholder-slate-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-base shadow-inner"
+          className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-3.5 text-white placeholder-slate-600 outline-none focus:border-indigo-500/60 focus:bg-white/[0.06] transition-all duration-200 text-sm"
         />
 
         {/* Email + teléfono */}
@@ -190,14 +190,14 @@ export function AuditForm() {
             placeholder="tu@email.com — recibe el PDF completo"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 rounded-xl bg-white/5 border border-white/10 px-5 py-3.5 text-white placeholder-slate-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm shadow-inner"
+            className="flex-1 rounded-lg bg-white/[0.04] border border-white/10 px-4 py-3.5 text-white placeholder-slate-600 outline-none focus:border-indigo-500/60 focus:bg-white/[0.06] transition-all duration-200 text-sm"
           />
           <input
             type="tel"
             placeholder="Teléfono (opcional)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="flex-1 sm:max-w-[180px] rounded-xl bg-white/5 border border-white/10 px-5 py-3.5 text-white placeholder-slate-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all text-sm shadow-inner"
+            className="flex-1 sm:max-w-[180px] rounded-lg bg-white/[0.04] border border-white/10 px-4 py-3.5 text-white placeholder-slate-600 outline-none focus:border-indigo-500/60 focus:bg-white/[0.06] transition-all duration-200 text-sm"
           />
         </div>
 
@@ -205,7 +205,7 @@ export function AuditForm() {
         <select
           value={sector}
           onChange={(e) => setSector(e.target.value)}
-          className="w-full rounded-xl bg-white/5 border border-white/10 px-5 py-3.5 text-sm text-slate-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all shadow-inner appearance-none"
+          className="w-full rounded-lg bg-white/[0.04] border border-white/10 px-4 py-3.5 text-sm text-slate-600 outline-none focus:border-indigo-500/60 focus:bg-white/[0.06] transition-all duration-200 appearance-none"
           style={{ colorScheme: 'dark' }}
         >
           <option value="" className="bg-slate-900 text-slate-400">Sector de tu negocio (opcional)</option>
@@ -217,7 +217,7 @@ export function AuditForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold hover:bg-indigo-500 active:scale-[0.98] active:bg-indigo-700 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 hover:shadow-xl transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="w-full rounded-lg bg-indigo-600 px-6 py-3.5 text-white text-sm font-semibold hover:bg-indigo-500 active:scale-[0.98] active:bg-indigo-700 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
