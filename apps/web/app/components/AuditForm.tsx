@@ -217,7 +217,7 @@ export function AuditForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold hover:bg-indigo-500 active:scale-[0.98] active:bg-indigo-700 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold hover:bg-indigo-500 active:scale-[0.98] active:bg-indigo-700 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 hover:shadow-xl transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -276,9 +276,9 @@ export function AuditForm() {
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-violet-500" />
             <h3 className="text-base font-bold text-white mb-4">{result.url}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-              <div className="p-3 rounded-xl bg-black/20 border border-white/5 text-center col-span-2 sm:col-span-1">
-                <p className="text-xs text-slate-400 mb-1">Global</p>
-                <p className={`text-3xl font-bold ${scoreColor(result.globalScore ?? 0)}`}>
+              <div className="p-3 rounded-xl bg-black/30 border border-white/8 text-center col-span-2 sm:col-span-1 ring-1 ring-inset ring-white/5">
+                <p className="text-xs text-slate-400 mb-1 uppercase tracking-wider">Global</p>
+                <p className={`text-4xl font-black tabular-nums ${scoreColor(result.globalScore ?? 0)}`}>
                   {result.globalScore ?? '--'}
                 </p>
               </div>
@@ -300,7 +300,7 @@ export function AuditForm() {
 
               <div className="space-y-3">
                 {previewFindings.map((finding: any, i: number) => (
-                  <div key={i} className={`p-4 rounded-xl border-l-4 bg-white/5 border border-white/10 ${borderClass(finding.severity)}`}>
+                  <div key={i} className={`p-4 rounded-xl border-l-4 bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:-translate-y-px transition-all duration-200 ${borderClass(finding.severity)}`}>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded border ${badgeClass(finding.severity)}`}>
                         {SEVERITY_LABEL[finding.severity] ?? finding.severity}

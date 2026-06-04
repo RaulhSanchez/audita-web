@@ -46,7 +46,10 @@ export default function Home() {
           {/* Badge */}
           <div className="mb-10 flex justify-center">
             <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide text-slate-400 ring-1 ring-white/10">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-50" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              </span>
               Gratis · Sin registro · 90 segundos
             </span>
           </div>
@@ -88,8 +91,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
 
             {/* Featured pilar — spans 3 cols */}
-            <div className="lg:col-span-3 rounded-2xl border border-white/8 bg-white/[0.03] p-8 flex flex-col gap-4">
-              <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-400">
+            <div className="group lg:col-span-3 rounded-2xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/12 transition-all duration-300 p-8 flex flex-col gap-4">
+              <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-400 group-hover:bg-indigo-500/25 group-hover:scale-110 transition-all duration-300">
                 <IconSearch />
               </div>
               <div>
@@ -110,8 +113,8 @@ export default function Home() {
 
             {/* 2 smaller pilares stacked */}
             <div className="lg:col-span-2 flex flex-col gap-4">
-              <div className="flex-1 rounded-2xl border border-white/8 bg-white/[0.03] p-6 flex flex-col gap-3">
-                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400">
+              <div className="group flex-1 rounded-2xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/12 transition-all duration-300 p-6 flex flex-col gap-3">
+                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-400 group-hover:bg-emerald-500/25 group-hover:scale-110 transition-all duration-300">
                   <IconTrendingUp />
                 </div>
                 <h3 className="text-base font-semibold text-white">Impacto en negocio</h3>
@@ -120,8 +123,8 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="flex-1 rounded-2xl border border-white/8 bg-white/[0.03] p-6 flex flex-col gap-3">
-                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-400">
+              <div className="group flex-1 rounded-2xl border border-white/8 bg-white/[0.03] hover:bg-white/[0.05] hover:border-white/12 transition-all duration-300 p-6 flex flex-col gap-3">
+                <div className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-violet-500/15 text-violet-400 group-hover:bg-violet-500/25 group-hover:scale-110 transition-all duration-300">
                   <IconTarget />
                 </div>
                 <h3 className="text-base font-semibold text-white">Plan de acción priorizado</h3>
@@ -160,7 +163,7 @@ export default function Home() {
               },
             ].map(({ quote, who, delay }, i) => (
               <ScrollReveal key={i} delay={delay as 1 | 2 | 3}>
-                <div className="h-full rounded-2xl border border-white/8 bg-white/[0.03] p-6 flex flex-col gap-4 hover:bg-white/[0.05] transition-colors duration-300">
+                <div className="h-full rounded-2xl border border-white/8 bg-white/[0.03] p-6 flex flex-col gap-4 hover:bg-white/[0.05] hover:-translate-y-0.5 hover:border-white/12 transition-all duration-300">
                   <p className="text-sm text-slate-300 leading-relaxed italic flex-1">{quote}</p>
                   <p className="text-xs text-slate-500 font-medium">{who}</p>
                 </div>
