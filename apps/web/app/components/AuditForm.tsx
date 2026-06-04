@@ -53,38 +53,64 @@ export function AuditForm() {
   const [phone, setPhone] = useState('');
   const [sector, setSector] = useState('');
   const [loading, setLoading] = useState(false);
+  const [warming, setWarming] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [teaserEmail, setTeaserEmail] = useState('');
   const [teaserSent, setTeaserSent] = useState(false);
   const [teaserLoading, setTeaserLoading] = useState(false);
 
+  // Retry with exponential backoff — handles Render cold start
+  const postWithRetry = async (payload: AuditRequestDto, retries = 4): Promise<any> => {
+    for (let i = 0; i < retries; i++) {
+      try {
+        const res = await fetch(`${API_BASE}/api/audits`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) return await res.json();
+        if (res.status >= 500 || res.status === 404) {
+          if (i === 0) setWarming(true);
+          await new Promise(r => setTimeout(r, (i + 1) * 8000));
+          continue;
+        }
+        throw new Error(`Error ${res.status}`);
+      } catch (e: any) {
+        // CORS / network error = service sleeping
+        if (i === 0) setWarming(true);
+        if (i < retries - 1) {
+          await new Promise(r => setTimeout(r, (i + 1) * 8000));
+          continue;
+        }
+        throw e;
+      }
+    }
+    throw new Error('El servidor no respondió tras varios intentos.');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!url) return;
     setLoading(true);
+    setWarming(false);
     setError(null);
     setResult(null);
     setTeaserSent(false);
 
     try {
-      const apiBase = API_BASE;
       const payload: AuditRequestDto = {
         url,
         email: email || undefined,
         phone: phone || undefined,
         sector: sector || undefined,
       };
-      const res = await fetch(`${apiBase}/api/audits`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error('Error al iniciar la auditoría');
-      const data = await res.json();
+      const data = await postWithRetry(payload);
+      setWarming(false);
       pollResult(data.id);
     } catch (err: any) {
-      setError(err.message || 'Error desconocido');
+      setWarming(false);
+      setError('No se pudo conectar con el servidor. Espera unos segundos y vuelve a intentarlo.');
       setLoading(false);
     }
   };
@@ -199,7 +225,7 @@ export function AuditForm() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
               </svg>
-              Analizando tu web…
+              {warming ? 'Arrancando servidor (puede tardar ~30s)…' : 'Analizando tu web…'}
             </span>
           ) : 'Auditar mi web gratis →'}
         </button>

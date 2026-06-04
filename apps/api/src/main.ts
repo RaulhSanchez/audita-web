@@ -3,7 +3,17 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  await app.listen(process.env.PORT ?? 3001); // running on 3001 so nextjs can take 3000
+  app.enableCors({
+    origin: [
+      'https://audita.zero2dev.es',
+      'https://zero2dev.es',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'x-api-key'],
+    credentials: false,
+  });
+  await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
