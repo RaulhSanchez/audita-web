@@ -3,6 +3,12 @@
 import { useState } from 'react';
 import { AuditRequestDto } from '@repo/shared';
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : 'https://audita-web-api.onrender.com');
+
 const SEVERITY_ORDER: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3 };
 const SEVERITY_LABEL: Record<string, string> = { critical: 'Crítico', high: 'Alto', medium: 'Medio', low: 'Bajo' };
 const SCORE_LABEL: Record<string, string> = {
@@ -61,7 +67,7 @@ export function AuditForm() {
     setTeaserSent(false);
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+      const apiBase = API_BASE;
       const payload: AuditRequestDto = {
         url,
         email: email || undefined,
@@ -83,7 +89,7 @@ export function AuditForm() {
   };
 
   const pollResult = (id: string) => {
-    const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+    const apiBase = API_BASE;
     const deadline = Date.now() + 5 * 60 * 1000;
     const interval = setInterval(async () => {
       if (Date.now() > deadline) {
@@ -113,7 +119,7 @@ export function AuditForm() {
     if (!teaserEmail || !result) return;
     setTeaserLoading(true);
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+      const apiBase = API_BASE;
       await fetch(`${apiBase}/api/audits`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
