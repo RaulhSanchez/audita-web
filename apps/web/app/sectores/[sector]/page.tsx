@@ -163,8 +163,7 @@ export default async function SectorPage({ params }: PageProps) {
           </ul>
           <p className="mt-6 text-center text-sm text-slate-500">
             ¿Cuántos tiene tu web?{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2">
+            <a href="#top" className="text-indigo-400 hover:text-indigo-300 underline underline-offset-2">
               Compruébalo gratis →
             </a>
           </p>

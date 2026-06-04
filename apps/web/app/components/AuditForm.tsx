@@ -184,7 +184,7 @@ export function AuditForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold shadow-lg shadow-indigo-500/30 hover:bg-indigo-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base"
+          className="w-full rounded-xl bg-indigo-600 px-8 py-4 text-white font-semibold hover:bg-indigo-500 active:scale-[0.98] active:bg-indigo-700 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
