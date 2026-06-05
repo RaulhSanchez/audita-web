@@ -6,114 +6,155 @@ export const metadata = {
   description: 'Análisis profesional de rendimiento, SEO, seguridad y RGPD en 90 segundos. Descubre por qué tu web está perdiendo clientes. Gratis, sin registro.',
 };
 
-const checks = [
-  { icon: '⚡', label: 'Velocidad de carga' },
+const chips = [
+  { icon: '⚡', label: 'Velocidad' },
   { icon: '🔍', label: 'SEO local' },
-  { icon: '🔒', label: 'Seguridad HTTPS' },
-  { icon: '📋', label: 'Cumplimiento RGPD' },
-  { icon: '📱', label: 'Experiencia móvil' },
+  { icon: '🔒', label: 'Seguridad' },
+  { icon: '📋', label: 'RGPD' },
+  { icon: '📱', label: 'Móvil' },
+];
+
+const stats = [
+  { n: '4s',   sub: 'tarda de media una web PYME en cargar en móvil' },
+  { n: '7/10', sub: 'webs tienen infracciones RGPD sin saberlo' },
+  { n: '63%',  sub: 'de usuarios no vuelve si la experiencia es mala' },
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#fafaf8] text-gray-900">
+    <main className="min-h-screen bg-[#f7f7f5] text-[#111111]">
 
       {/* ── NAV ── */}
       <nav className="mx-auto max-w-5xl px-6 py-5 lg:px-8 flex items-center justify-between">
-        <span className="text-sm font-bold text-gray-900 tracking-tight">AuditaWeb</span>
+        <span className="text-sm font-black tracking-tight">AuditaWeb</span>
         <a
           href="/informe-ejemplo.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-gray-500 hover:text-gray-900 transition-colors duration-200"
+          className="text-sm text-gray-400 hover:text-gray-900 transition-colors duration-200"
         >
           Ver ejemplo →
         </a>
       </nav>
 
-      {/* ── HERO ── */}
-      <section className="mx-auto max-w-5xl px-6 pt-12 pb-16 lg:px-8">
-        <div className="max-w-3xl">
+      {/* ── HERO — Editorial Split ── */}
+      <section className="mx-auto max-w-5xl px-6 pt-10 pb-16 lg:px-8">
+        <div className="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-start">
 
-          <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 border border-indigo-100 px-3 py-1.5 mb-8">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-500" />
-            </span>
-            <span className="text-xs font-medium text-indigo-700">Gratis · Sin registro · 90 segundos</span>
+          {/* Left — content */}
+          <div>
+            {/* Eyebrow pill — Skill: rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 mb-8 shadow-sm">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+                Gratis · Sin registro · 90 segundos
+              </span>
+            </div>
+
+            {/* H1 — massive Grotesk, 2 lines */}
+            <h1 className="text-[clamp(2.75rem,6vw,4.5rem)] font-black tracking-tight text-[#111111] leading-[0.93] mb-6">
+              Tu web pierde<br />clientes.{' '}
+              <span className="text-indigo-600">Descubre dónde.</span>
+            </h1>
+
+            <p className="text-[15px] text-gray-500 leading-relaxed max-w-md mb-8">
+              Análisis de rendimiento, SEO, seguridad y RGPD en lenguaje de negocio,
+              no de desarrollador. En 90 segundos. Gratis.
+            </p>
+
+            {/* Analysis chips */}
+            <div className="flex flex-wrap gap-2">
+              {chips.map(({ icon, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm"
+                >
+                  <span className="text-sm">{icon}</span>
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            {/* Stats — inline, no cards */}
+            <div className="mt-12 pt-10 border-t border-gray-200 grid grid-cols-3 gap-4">
+              {stats.map(({ n, sub }) => (
+                <div key={n}>
+                  <p className="text-3xl font-black text-[#111111] tabular-nums leading-none mb-1">{n}</p>
+                  <p className="text-xs text-gray-400 leading-snug">{sub}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <h1 className="text-[clamp(2.5rem,6vw,4.25rem)] font-black tracking-tight text-gray-900 leading-[1.0] mb-6">
-            Tu web pierde clientes.<br />
-            <span className="text-indigo-600">Descubre exactamente dónde.</span>
-          </h1>
+          {/* Right — Double-bezel form card (Skill: outer shell + inner core) */}
+          <div className="lg:sticky lg:top-8">
+            {/* Outer shell */}
+            <div className="rounded-[1.75rem] bg-gray-100 ring-1 ring-gray-200/80 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+              {/* Inner core */}
+              <div className="rounded-[1.25rem] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] p-6">
+                <p className="text-base font-bold text-[#111111] mb-0.5">Analiza tu web gratis</p>
+                <p className="text-xs text-gray-400 mb-5">Informe completo en 90 segundos</p>
+                <AuditForm />
+              </div>
+            </div>
 
-          <p className="text-lg text-gray-500 mb-10 max-w-xl leading-relaxed">
-            Análisis de rendimiento, SEO, seguridad y RGPD en 90 segundos.
-            Informe en lenguaje de negocio, no de desarrollador. Gratis.
-          </p>
-
-          {/* Form en card elevada */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 max-w-xl">
-            <AuditForm />
+            <p className="mt-3 text-center text-xs text-gray-400">
+              Sin tarjeta de crédito · Sin registro
+            </p>
           </div>
 
         </div>
       </section>
 
-      {/* ── QUÉ ANALIZO — chips visuales ── */}
-      <ScrollReveal>
-        <section className="mx-auto max-w-5xl px-6 pb-16 lg:px-8">
-          <div className="flex flex-wrap gap-3">
-            {checks.map(({ icon, label }) => (
-              <div
-                key={label}
-                className="flex items-center gap-2 rounded-full bg-white border border-gray-200 px-4 py-2 text-sm text-gray-700 shadow-sm"
-              >
-                <span>{icon}</span>
-                <span>{label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── STATS ── */}
+      {/* ── BENTO FEATURES ── */}
       <ScrollReveal>
         <section className="mx-auto max-w-5xl px-6 pb-20 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { n: '4s',   label: 'tarda de media una web PYME en cargar en móvil' },
-              { n: '7/10', label: 'webs tienen infracciones RGPD sin saberlo' },
-              { n: '63%',  label: 'de usuarios no vuelve si la experiencia es mala' },
-            ].map(({ n, label }) => (
-              <div key={n} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                <p className="text-4xl font-black text-indigo-600 tabular-nums mb-1">{n}</p>
-                <p className="text-sm text-gray-500 leading-snug">{label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </ScrollReveal>
+          {/* Bento grid — asimétrico según skill */}
+          <div className="grid lg:grid-cols-5 gap-3">
 
-      {/* ── CÓMO FUNCIONA ── */}
-      <ScrollReveal>
-        <section className="mx-auto max-w-5xl px-6 pb-20 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Cómo funciona</h2>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {[
-              { step: '1', title: 'Pega tu URL', desc: 'Introduce la dirección de tu web. No necesitas cuenta ni instalar nada.' },
-              { step: '2', title: 'Análisis automático', desc: 'En 90 segundos analizamos velocidad, SEO, seguridad, RGPD y experiencia móvil.' },
-              { step: '3', title: 'Recibe el informe', desc: 'Ves los resultados al instante. Si dejas tu email, recibes el PDF completo gratis.' },
-            ].map(({ step, title, desc }) => (
-              <div key={step} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                <div className="h-8 w-8 rounded-lg bg-indigo-600 text-white text-sm font-black flex items-center justify-center mb-4">
-                  {step}
-                </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+            {/* Featured — lg:col-span-3 */}
+            <div className="lg:col-span-3 rounded-2xl bg-white ring-1 ring-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.05)] p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-400 mb-4">Lo que analizamos</p>
+              <ul className="space-y-3">
+                {[
+                  ['⚡', 'Velocidad de carga', 'Móvil y escritorio, Core Web Vitals'],
+                  ['🔍', 'SEO local', 'Posicionamiento en búsquedas de tu zona'],
+                  ['🔒', 'Seguridad HTTPS', 'Certificado SSL, cabeceras de seguridad'],
+                  ['📋', 'Cumplimiento RGPD', 'Cookies, política de privacidad, formularios'],
+                  ['📱', 'Experiencia móvil', 'Usabilidad, botones, accesibilidad'],
+                ].map(([icon, title, desc]) => (
+                  <li key={title} className="flex items-start gap-3">
+                    <span className="text-base mt-0.5">{icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-[#111]">{title}</p>
+                      <p className="text-xs text-gray-400">{desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Right stack — lg:col-span-2 */}
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              <div className="flex-1 rounded-2xl bg-indigo-600 p-7 text-white">
+                <p className="text-4xl font-black tabular-nums mb-2">90s</p>
+                <p className="text-sm font-semibold mb-1">Análisis completo</p>
+                <p className="text-xs text-indigo-200 leading-relaxed">
+                  En menos de 2 minutos tienes el diagnóstico completo de tu web.
+                </p>
               </div>
-            ))}
+              <div className="flex-1 rounded-2xl bg-white ring-1 ring-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.05)] p-7">
+                <p className="text-4xl font-black tabular-nums text-[#111] mb-2">PDF</p>
+                <p className="text-sm font-semibold mb-1">Informe completo</p>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Recibes el informe detallado en tu email, listo para enseñar a tu equipo.
+                </p>
+              </div>
+            </div>
+
           </div>
         </section>
       </ScrollReveal>
@@ -121,15 +162,17 @@ export default function Home() {
       {/* ── AUTOR ── */}
       <ScrollReveal>
         <section className="mx-auto max-w-5xl px-6 pb-20 lg:px-8">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex items-start gap-5 max-w-2xl">
-            <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-indigo-600 flex items-center justify-center text-lg font-black text-white">
+          <div className="flex items-start gap-5 max-w-2xl">
+            <div className="flex-shrink-0 h-11 w-11 rounded-xl bg-indigo-600 flex items-center justify-center text-sm font-black text-white shadow-md">
               R
             </div>
             <div>
-              <p className="font-semibold text-gray-900">Raúl Huete</p>
-              <p className="text-xs text-gray-400 mt-0.5 mb-3">Arquitecto de Software freelance · Madrid sur · zero2dev.es</p>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Creé AuditaWeb para que cada PYME pueda tener el mismo diagnóstico web que normalmente solo se pueden permitir las empresas grandes. Sin agencias, sin presupuesto.
+              <p className="font-semibold text-[#111]">Raúl Huete</p>
+              <p className="text-xs text-gray-400 mt-0.5 mb-3">Arquitecto de Software freelance · Madrid sur</p>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                Creé AuditaWeb para que cada PYME pueda tener el diagnóstico web
+                que normalmente solo se pueden permitir las empresas grandes.
+                Sin agencias, sin presupuesto.
               </p>
             </div>
           </div>
@@ -139,16 +182,21 @@ export default function Home() {
       {/* ── CTA FINAL ── */}
       <ScrollReveal>
         <section className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
-          <div className="bg-indigo-600 rounded-2xl p-8 sm:p-12">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-              Analiza tu web ahora. Es gratis.
-            </h2>
-            <p className="text-indigo-200 mb-8 text-sm">
-              Sin registro. Sin tarjeta de crédito. En 90 segundos.
-            </p>
-            <div className="max-w-xl bg-white rounded-xl p-4">
-              <AuditForm ctaVariant="light" />
+          <div className="rounded-2xl bg-[#111111] px-8 py-10 sm:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div>
+              <p className="text-xl font-bold text-white mb-1">¿Tu web está perdiendo clientes?</p>
+              <p className="text-sm text-gray-400">Descúbrelo en 90 segundos. Gratis.</p>
             </div>
+            <a
+              href="#"
+              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#111] hover:bg-gray-100 active:scale-[0.97] transition-all duration-200 whitespace-nowrap shadow-sm"
+            >
+              Analizar mi web
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black/8 text-xs">
+                ↑
+              </span>
+            </a>
           </div>
         </section>
       </ScrollReveal>
