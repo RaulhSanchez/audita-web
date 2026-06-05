@@ -22,7 +22,7 @@ const stats = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f7f7f5] text-[#111111]">
+    <main id="top" className="min-h-screen bg-[#f7f7f5] text-[#111111]">
 
       {/* ── NAV ── */}
       <nav className="mx-auto max-w-5xl px-6 py-5 lg:px-8 flex items-center justify-between">
@@ -188,8 +188,7 @@ export default function Home() {
               <p className="text-sm text-gray-400">Descúbrelo en 90 segundos. Gratis.</p>
             </div>
             <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              href="#top"
               className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#111] hover:bg-gray-100 active:scale-[0.97] transition-all duration-200 whitespace-nowrap shadow-sm"
             >
               Analizar mi web
