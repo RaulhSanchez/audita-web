@@ -13,6 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: 'KXEsjMuUk4SIg3fl5Xnki76B1DcJuw6k5Bi8G-UO0Zc',
+  },
   title: "AuditaWeb — Auditoría web gratis para PYMEs | zero2dev.es",
   description: "Análisis profesional de rendimiento, SEO, seguridad y RGPD en 90 segundos. Descubre por qué tu web está perdiendo clientes. Informe en lenguaje de negocio, gratis.",
   openGraph: {
