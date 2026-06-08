@@ -280,22 +280,28 @@ export function AuditForm({ ctaVariant }: { ctaVariant?: 'light' } = {}) {
           {/* Score global + desglose */}
           <div className="rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden">
             <div className="h-1 bg-indigo-600 w-full" />
-            <div className="p-5">
-              <h3 className="text-sm font-semibold text-gray-700 mb-4 truncate">{result.url}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
-                <div className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center col-span-2 sm:col-span-1">
-                  <p className="text-[10px] text-gray-400 mb-1 uppercase tracking-wider font-medium">Global</p>
-                  <p className={`text-4xl font-black tabular-nums ${scoreColor(result.globalScore ?? 0)}`}>
-                    {result.globalScore ?? '--'}
-                  </p>
+            <div className="p-4">
+              {/* Global score — fila propia */}
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider font-medium mb-0.5">Puntuación global</p>
+                  <p className="text-xs text-gray-400 truncate max-w-[200px]">{result.url}</p>
                 </div>
-                {result.scores && Object.entries(result.scores).map(([key, value]) => (
-                  <div key={key} className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center">
-                    <p className="text-[10px] text-gray-400 mb-1">{SCORE_LABEL[key] ?? key}</p>
-                    <p className={`text-2xl font-bold ${scoreColor(value as number)}`}>{value as number}</p>
-                  </div>
-                ))}
+                <p className={`text-5xl font-black tabular-nums leading-none ${scoreColor(result.globalScore ?? 0)}`}>
+                  {result.globalScore ?? '--'}
+                </p>
               </div>
+              {/* Scores — grid 3 cols fijo, funciona en cualquier ancho */}
+              {result.scores && (
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.entries(result.scores).map(([key, value]) => (
+                    <div key={key} className="p-2.5 rounded-lg bg-gray-50 border border-gray-100 text-center">
+                      <p className="text-[10px] text-gray-400 mb-1 leading-tight">{SCORE_LABEL[key] ?? key}</p>
+                      <p className={`text-xl font-bold tabular-nums ${scoreColor(value as number)}`}>{value as number}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -326,44 +332,46 @@ export function AuditForm({ ctaVariant }: { ctaVariant?: 'light' } = {}) {
 
               {/* Teaser — solo si no hay email */}
               {!hasEmail && hiddenCount > 0 && (
-                <div className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50 overflow-hidden">
-                  <div className="relative px-4 pt-4 pb-2">
+                <div className="mt-3 rounded-xl border border-indigo-100 bg-indigo-50 overflow-hidden">
+                  {/* Filas borrosas */}
+                  <div className="relative px-3 pt-3 pb-1">
                     <div className="space-y-2 blur-sm pointer-events-none select-none" aria-hidden>
-                      {sortedFindings.slice(3, 6).map((_: any, i: number) => (
-                        <div key={i} className="h-14 rounded-lg bg-white border border-gray-100" />
+                      {sortedFindings.slice(3, Math.min(6, sortedFindings.length)).map((_: any, i: number) => (
+                        <div key={i} className="h-12 rounded-lg bg-white border border-gray-100" />
                       ))}
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-50/60 to-indigo-50" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-50" />
                   </div>
 
-                  <div className="px-6 pb-6 pt-2 text-center">
-                    <p className="text-gray-900 font-bold text-lg mb-1">
-                      +{hiddenCount} problema{hiddenCount !== 1 ? 's' : ''} más en el análisis completo
+                  {/* CTA */}
+                  <div className="px-4 pb-5 pt-1 text-center">
+                    <p className="text-gray-900 font-bold text-base mb-1">
+                      +{hiddenCount} problema{hiddenCount !== 1 ? 's' : ''} más detectados
                     </p>
-                    <p className="text-gray-500 text-sm mb-5">
-                      Recibe el informe PDF detallado en tu email, gratis, en menos de 2 minutos.
+                    <p className="text-gray-500 text-xs mb-4 leading-relaxed">
+                      Deja tu email y recibe el informe PDF completo gratis.
                     </p>
 
                     {teaserSent ? (
-                      <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium">
-                        ¡Listo! Revisa tu bandeja de entrada en unos minutos.
+                      <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium">
+                        ¡Listo! Revisa tu bandeja en unos minutos.
                       </div>
                     ) : (
-                      <form onSubmit={handleTeaserEmail} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                      <form onSubmit={handleTeaserEmail} className="flex flex-col gap-2">
                         <input
                           type="email"
                           required
                           placeholder="tu@email.com"
                           value={teaserEmail}
                           onChange={(e) => setTeaserEmail(e.target.value)}
-                          className="flex-1 rounded-lg bg-white border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm"
+                          className="w-full rounded-lg bg-white border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm"
                         />
                         <button
                           type="submit"
                           disabled={teaserLoading}
-                          className="rounded-lg bg-indigo-600 px-6 py-3 text-white text-sm font-semibold hover:bg-indigo-700 active:scale-[0.98] transition-all disabled:opacity-50 whitespace-nowrap"
+                          className="w-full rounded-full bg-indigo-600 px-4 py-2.5 text-white text-sm font-semibold hover:bg-indigo-700 active:scale-[0.97] transition-all disabled:opacity-50"
                         >
-                          {teaserLoading ? 'Enviando…' : 'Recibir PDF gratis'}
+                          {teaserLoading ? 'Enviando…' : 'Recibir PDF gratis →'}
                         </button>
                       </form>
                     )}
