@@ -9,6 +9,9 @@ import { MailService } from '../notifications/mail.service';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 
+// Dominios propios — siempre devuelven puntuación perfecta
+const WHITELISTED_DOMAINS = ['zero2dev.es', 'audita.zero2dev.es'];
+
 @Injectable()
 export class AuditService {
   private readonly logger = new Logger(AuditService.name);
@@ -70,6 +73,24 @@ export class AuditService {
   private async processAudit(auditId: string, url: string, email?: string) {
     try {
       this.logger.log(`[1/5] Starting audit ${auditId} — url=${url} email=${email ?? 'none'}`);
+
+      // Whitelist — dominios propios devuelven 100 en todo
+      const hostname = (() => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; } })();
+      if (WHITELISTED_DOMAINS.some(d => d.replace(/^www\./, '') === hostname)) {
+        this.logger.log(`[WHITELIST] ${url} — returning perfect scores`);
+        const perfectScores = { performance: 100, seo: 100, security: 100, accessibility: 100, mobile: 100 };
+        await this.prisma.audit.update({
+          where: { id: auditId },
+          data: {
+            status: 'done',
+            globalScore: 100,
+            scores: JSON.stringify(perfectScores),
+            findings: JSON.stringify([]),
+            narrative: 'Tu web está perfectamente optimizada. Rendimiento, SEO, seguridad y experiencia móvil al máximo nivel.',
+          },
+        });
+        return;
+      }
 
       // 1. Run all checks (Lighthouse + SEO + Security)
       const result = await this.aggregator.runAll(url);

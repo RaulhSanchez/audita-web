@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, InternalServerErrorException, Logger, Param, Post, Res, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Headers, InternalServerErrorException, Logger, Param, Post, Res, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { AuditService } from './audit.service';
 import type { Response } from 'express';
@@ -12,9 +12,49 @@ export class AuditController {
 
   @Post()
   async create(@Body() body: any) {
+    // ── URL validation ──────────────────────────────────────
+    const BLOCKED_HOSTS = [
+      'example.com', 'example.org', 'example.net',
+      'localhost', '127.0.0.1', '0.0.0.0',
+      'test.com', 'test.org', 'test.net',
+      'domain.com', 'yourwebsite.com', 'mywebsite.com',
+      'placeholder.com', 'website.com',
+    ];
+    try {
+      const hostname = new URL(body.url).hostname.toLowerCase().replace(/^www\./, '');
+      if (BLOCKED_HOSTS.includes(hostname)) {
+        throw new BadRequestException('Introduce la URL real de tu web para analizarla.');
+      }
+    } catch (e) {
+      if (e instanceof BadRequestException) throw e;
+      throw new BadRequestException('URL no válida. Asegúrate de incluir https://');
+    }
+
+    // ── Email validation ────────────────────────────────────
+    if (body.email) {
+      const BLOCKED_EMAIL_DOMAINS = [
+        'test.com', 'example.com', 'fake.com', 'fake.es',
+        'mailinator.com', 'guerrillamail.com', 'tempmail.com',
+        'throwam.com', 'yopmail.com', 'trashmail.com',
+        'sharklasers.com', 'dispostable.com',
+      ];
+      const BLOCKED_EMAIL_USERS = ['test', 'fake', 'noreply', 'no-reply', 'admin@test', 'user@test'];
+      const emailLower = body.email.toLowerCase().trim();
+      const [user, domain] = emailLower.split('@');
+      if (
+        BLOCKED_EMAIL_DOMAINS.includes(domain) ||
+        BLOCKED_EMAIL_USERS.some(u => emailLower.startsWith(u + '@')) ||
+        emailLower === 'test@test.com' ||
+        emailLower === 'a@a.com'
+      ) {
+        throw new BadRequestException('Introduce tu email real para recibir el informe.');
+      }
+    }
+
     try {
       return await this.auditService.createAudit(body.url, body.email, body.phone, body.sector);
     } catch (e) {
+      if (e instanceof BadRequestException) throw e;
       this.logger.error('createAudit failed', e);
       throw new InternalServerErrorException((e as Error).message ?? 'Unexpected error');
     }
